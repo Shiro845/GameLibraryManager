@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="#052535"
+             x:Class="GameLibraryManager.Pages.SettingsPage">
+        <Border BorderThickness="2" BorderBrush="Aquamarine" CornerRadius="10" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                   <RowDefinition Height="*"/>
+                   <RowDefinition Height="*"/>
+                   <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label HorizontalAlignment="Left">
+                        <Viewbox Stretch="Uniform">
+                            <TextBlock Text="Settings" Margin="5" Foreground="White"/>
+                        </Viewbox>
+                    </Label>
+                </Grid>
+                <StackPanel Grid.Row="1">
+
+                </StackPanel>
+            </Grid>
+        </Border>
+    
+</UserControl>

@@ -1,0 +1,90 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GameLibraryManager.MainWindow"
+        Title="GameLibraryManager"
+        Background="Aquamarine">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Background="#153040">
+            <Border BorderThickness="2" BorderBrush="OrangeRed" CornerRadius="5" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0">
+                        <Image Margin="8" Stretch="Uniform"
+                               HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                               Source="avares://GameLibraryManager/Assets/Images/logo.png"/>
+                        <Viewbox Grid.Column="1" Stretch="Uniform" HorizontalAlignment="Left" Margin="5">
+                            <TextBlock Text="Game Launcher" Foreground="White"/>
+                        </Viewbox>
+                    </DockPanel>
+                    <Border Grid.Row="1" BorderThickness="2" BorderBrush="Orange" CornerRadius="10" Margin="10">
+                        <Grid RowDefinitions="*, *, *">
+        
+                             <Button x:Name="home"
+                                     Grid.Row="0"
+                                     HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch"
+                                     Margin="10" Foreground="White" Background="#153040"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Left"
+                                     Click="ShowHome">
+                                     <Viewbox Stretch="Uniform">
+                                        <TextBlock Text="🏠 Home" Margin="5"/>
+                                     </Viewbox>
+                             </Button>
+                             
+                             <Button x:Name="library"
+                                     Grid.Row="1"
+                                     HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch"
+                                     Margin="10" Foreground="White" Background="#153040"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Left"
+                                     Click="ShowLibrary">
+                                     <Viewbox Stretch="Uniform">
+                                        <TextBlock Text="📖 My Library" Margin="5"/>
+                                     </Viewbox>
+                             </Button>
+                             
+                             <Button x:Name="settings"
+                                     Grid.Row="2" 
+                                     HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch" 
+                                     Margin="10" Foreground="White" Background="#153040"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Left"
+                                     Click="ShowSettings">
+                                    
+                                     <Viewbox Stretch="Uniform">
+                                        <TextBlock Text="⚙️ Settings" Margin="5"/>
+                                     </Viewbox>
+                             </Button>
+                         </Grid>
+                    </Border>
+                    <Button Grid.Row="3" Background="Gray"
+                            HorizontalAlignment="Stretch"
+                            CornerRadius="5" Margin="5" HorizontalContentAlignment="Left">
+                        <Viewbox Stretch="Uniform">
+                            <TextBlock Text="➜] Exit" Margin="5" Foreground="White"/>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Border>
+        </Border>
+        <Border Grid.Column="1" Background="#052535">
+            <ContentControl x:Name="MainContentArea"/>
+        </Border>
+    </Grid>
+
+</Window>
