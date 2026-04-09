@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using GameLibraryManager.Pages;
@@ -10,7 +11,6 @@ namespace GameLibraryManager
         {
             InitializeComponent();
             MainContentArea.Content = new HomePage();
-            //this.WindowState = WindowState.FullScreen;
         }
 
         public void ShowHome(object sender, RoutedEventArgs e)
@@ -24,6 +24,10 @@ namespace GameLibraryManager
         public void ShowSettings(object sender, RoutedEventArgs e)
         {
             MainContentArea.Content = new SettingsPage();
+        }
+        public void ExitButton(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

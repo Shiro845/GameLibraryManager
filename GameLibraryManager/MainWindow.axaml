@@ -35,7 +35,7 @@
                                      Grid.Row="0"
                                      HorizontalAlignment="Stretch" 
                                      VerticalAlignment="Stretch"
-                                     Margin="10" Foreground="White" Background="#153040"
+                                     Margin="5" Foreground="White" Background="#153040"
                                      VerticalContentAlignment="Center"
                                      HorizontalContentAlignment="Left"
                                      Click="ShowHome">
@@ -48,7 +48,7 @@
                                      Grid.Row="1"
                                      HorizontalAlignment="Stretch" 
                                      VerticalAlignment="Stretch"
-                                     Margin="10" Foreground="White" Background="#153040"
+                                     Margin="5" Foreground="White" Background="#153040"
                                      VerticalContentAlignment="Center"
                                      HorizontalContentAlignment="Left"
                                      Click="ShowLibrary">
@@ -61,7 +61,7 @@
                                      Grid.Row="2" 
                                      HorizontalAlignment="Stretch" 
                                      VerticalAlignment="Stretch" 
-                                     Margin="10" Foreground="White" Background="#153040"
+                                     Margin="5" Foreground="White" Background="#153040"
                                      VerticalContentAlignment="Center"
                                      HorizontalContentAlignment="Left"
                                      Click="ShowSettings">
@@ -72,9 +72,11 @@
                              </Button>
                          </Grid>
                     </Border>
-                    <Button Grid.Row="3" Background="Gray"
+                    <Button x:Name="exitButton"
+                            Grid.Row="3" Background="#405060"
                             HorizontalAlignment="Stretch"
-                            CornerRadius="5" Margin="5" HorizontalContentAlignment="Left">
+                            CornerRadius="5" Margin="5" HorizontalContentAlignment="Left"
+                            Click="ExitButton">
                         <Viewbox Stretch="Uniform">
                             <TextBlock Text="➜] Exit" Margin="5" Foreground="White"/>
                         </Viewbox>
