@@ -28,5 +28,7 @@
     <AvaloniaResource Include="Assets\Images\logo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </AvaloniaResource>
+	  <None Remove="Assets\Images\logo.png" />
+	  <AvaloniaResource Include="Assets\Images\logo.png" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@ namespace GameLibraryManager
         public MainWindow()
         {
             InitializeComponent();
+            //this.WindowState = WindowState.FullScreen;
             MainContentArea.Content = new HomePage();
         }
 

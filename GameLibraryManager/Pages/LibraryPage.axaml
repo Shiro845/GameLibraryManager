@@ -5,7 +5,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.LibraryPage">
-        <Border BorderThickness="2" BorderBrush="Aquamarine" CornerRadius="10" Margin="5">
+        <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Color="#203A43" Offset="0.0"/>
+                    <GradientStop Color="#2C5364" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
                    <RowDefinition Height="*"/>
@@ -25,20 +31,25 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center"
-                    BorderBrush="Orange" BorderThickness="2" CornerRadius="5"
+                    BorderBrush="OrangeRed" BorderThickness="2" CornerRadius="5"
                     Padding="1">
                         <Viewbox Stretch="Uniform">
-                            <TextBox x:Name="searchBox" MaxLength="60" Background="#253545" Foreground="LightGray" Margin="3" PlaceholderText="🔍︎ Search games..." BorderBrush="#80ffffff"/>
+                            <TextBox x:Name="searchBox" 
+                            Background="#253545" MaxLength="60"
+                            Foreground="LightGray" Margin="3"
+                            PlaceholderText="🔍︎ Search games..."
+                            BorderBrush="#80ffffff"/>
                         </Viewbox>
                     </Border>
                     <Border Grid.Column="1" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    BorderBrush="Orange" BorderThickness="2" 
+                    BorderBrush="OrangeRed" BorderThickness="2" 
                     CornerRadius="5" Padding="1">
                         <Viewbox Stretch="Uniform">
                             <Button x:Name="addGameButton" Content="+ Add Game"
                             Margin="3" BorderBrush="#80ffffff" 
                             VerticalAlignment="Stretch"
-                            Background="Aqua"/>
+                            Background="Aqua"
+                            Foreground="Black"/>
                         </Viewbox>
                     </Border>
                 </Grid>
@@ -59,19 +70,27 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <TextBlock Text="Назва гри" Foreground="White"/>
+                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
+                                        <TextBlock Text="Назва гри" Foreground="White"/>
+                                    </Viewbox>
                                 </Border>
                                 <Border Grid.Column="1" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <TextBlock Text="Жанр" Foreground="White"/>
+                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
+                                        <TextBlock Text="Жанр" Foreground="White"/>
+                                    </Viewbox>
                                 </Border>
                                 <Border Grid.Column="2" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <TextBlock Text="Ваша Оцінка" Foreground="White"/>
+                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
+                                        <TextBlock Text="Ваша Оцінка" Foreground="White"/>
+                                    </Viewbox>
                                 </Border>
                                 <Border Grid.Column="3" BorderBrush="#50FFFFFF"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <TextBlock Text="Дії" Foreground="White"/>
+                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
+                                        <TextBlock Text="Дії" Foreground="White"/>
+                                    </Viewbox>
                                 </Border>
                             </Grid>
                             <ListBox Grid.Row="1" Background="#354555">
@@ -82,5 +101,4 @@
                 </Border>
             </Grid>
         </Border>
-    
 </UserControl>
