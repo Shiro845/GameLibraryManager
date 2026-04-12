@@ -49,7 +49,8 @@
                             Margin="3" BorderBrush="#80ffffff" 
                             VerticalAlignment="Stretch"
                             Background="Aqua"
-                            Foreground="Black"/>
+                            Foreground="Black"
+                            Click="AddGameButton"/>
                         </Viewbox>
                     </Border>
                 </Grid>
@@ -61,35 +62,29 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="5*"/>
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Background="#455565">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0" Background="#455565" ColumnDefinitions="3*, 2*, 3*, 4*">
                                 <Border Grid.Column="0" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                     <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Назва гри" Foreground="White"/>
+                                        <TextBlock Text="Name" Foreground="White" Margin="0, 2, 0, 2"/>
                                     </Viewbox>
                                 </Border>
                                 <Border Grid.Column="1" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                     <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Жанр" Foreground="White"/>
+                                        <TextBlock Text="Genre" Foreground="White" Margin="0, 2, 0, 2"/>
                                     </Viewbox>
                                 </Border>
                                 <Border Grid.Column="2" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                     <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Ваша Оцінка" Foreground="White"/>
+                                        <TextBlock Text="Your Rate" Foreground="White" Margin="0, 2, 0, 2"/>
                                     </Viewbox>
                                 </Border>
                                 <Border Grid.Column="3" BorderBrush="#50FFFFFF"
                                         VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                     <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Дії" Foreground="White"/>
+                                        <TextBlock Text="Actions" Foreground="White" Margin="0, 2, 0, 2"/>
                                     </Viewbox>
                                 </Border>
                             </Grid>

@@ -13,7 +13,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="RootBorder" BorderThickness="4,0,0,0"
-                CornerRadius="2">
+                CornerRadius="2" Background="Transparent">
                     <ContentPresenter
                     Content="{TemplateBinding Content}"
                     HorizontalAlignment="Left"
@@ -30,7 +30,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
     </Style>
-    <Style Selector="RadioButton.MenuButton:pointerover">
+    <Style Selector="RadioButton.MenuButton:pointerover:unchecked">
         <Setter Property="Foreground" Value="Black"/>
             <Style Selector="^ /template/ Border#RootBorder">
                 <Setter Property="Background" Value="#50ffffff"/>
@@ -43,74 +43,107 @@
     </Style>
 </Window.Styles>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Background="#153040">
-            <Border BorderThickness="2" BorderBrush="OrangeRed" CornerRadius="5" Margin="5">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-                        <GradientStop Color="#0F2027" Offset="0.0"/>
-                        <GradientStop Color="#104055" Offset="0.5"/>
-                        <GradientStop Color="#203A43" Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <DockPanel Grid.Row="0">
-                        <Image Margin="8" Stretch="Uniform"
-                               HorizontalAlignment="Center" VerticalAlignment="Stretch"
-                               Source="avares://GameLibraryManager/Assets/Images/logo.png"/>
-                        <Viewbox Grid.Column="1" Stretch="Uniform" HorizontalAlignment="Left" Margin="-5 5 5 5">
-                            <TextBlock Text="Game Launcher" Foreground="White"/>
-                        </Viewbox>
-                    </DockPanel>
-                    <Border Grid.Row="1" BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="10">
-                        <Grid RowDefinitions="*, *, *">
-        
-                             <RadioButton x:Name="home" Classes="MenuButton"
-                                     Grid.Row="0" Click="ShowHome">
-                                     <Viewbox Stretch="Uniform">
-                                        <TextBlock Text="🏠 Home" Margin="5"/>
-                                     </Viewbox>
-                             </RadioButton>
-                             
-                             <RadioButton x:Name="library" Classes="MenuButton"
-                                     Grid.Row="1" Click="ShowLibrary">
-                                     <Viewbox Stretch="Uniform">
-                                        <TextBlock Text="📖 My Library" Margin="5"/>
-                                     </Viewbox>
-                             </RadioButton>
-                             
-                             <RadioButton x:Name="settings" Classes="MenuButton"
-                                     Grid.Row="2" Click="ShowSettings">
-                                     <Viewbox Stretch="Uniform">
-                                        <TextBlock Text="⚙️ Settings" Margin="5"/>
-                                     </Viewbox>
-                             </RadioButton>
-                         </Grid>
-                    </Border>
-                    <Button x:Name="exitButton"
-                            Grid.Row="3" Background="#405060"
-                            HorizontalAlignment="Stretch"
-                            CornerRadius="5" Margin="5" HorizontalContentAlignment="Left"
-                            Click="ExitButton">
-                        <Viewbox Stretch="Uniform">
-                            <TextBlock Text="➜] Exit" Margin="5" Foreground="White"/>
-                        </Viewbox>
-                    </Button>
-                </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Background="#153040">
+                <Border BorderThickness="2" BorderBrush="OrangeRed" CornerRadius="5" Margin="5">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                            <GradientStop Color="#0F2027" Offset="0.0"/>
+                            <GradientStop Color="#104055" Offset="0.5"/>
+                            <GradientStop Color="#203A43" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0">
+                            <Image Margin="8" Stretch="Uniform"
+                                   HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                                   Source="avares://GameLibraryManager/Assets/Images/logo.png"/>
+                            <Viewbox Grid.Column="1" Stretch="Uniform" HorizontalAlignment="Left" Margin="-5 5 5 5">
+                                <TextBlock Text="Game Launcher" Foreground="White"/>
+                            </Viewbox>
+                        </DockPanel>
+                        <Border Grid.Row="1" BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="10">
+                            <Grid RowDefinitions="*, *, *">
+            
+                                 <RadioButton x:Name="home" Classes="MenuButton"
+                                         Grid.Row="0" Click="ShowHome">
+                                         <Viewbox Stretch="Uniform">
+                                            <TextBlock Text="🏠 Home" Margin="5"/>
+                                         </Viewbox>
+                                 </RadioButton>
+                                 
+                                 <RadioButton x:Name="library" Classes="MenuButton"
+                                         Grid.Row="1" Click="ShowLibrary">
+                                         <Viewbox Stretch="Uniform">
+                                            <TextBlock Text="📖 My Library" Margin="5"/>
+                                         </Viewbox>
+                                 </RadioButton>
+                                 
+                                 <RadioButton x:Name="settings" Classes="MenuButton"
+                                         Grid.Row="2" Click="ShowSettings">
+                                         <Viewbox Stretch="Uniform">
+                                            <TextBlock Text="⚙️ Settings" Margin="5"/>
+                                         </Viewbox>
+                                 </RadioButton>
+                             </Grid>
+                        </Border>
+                        <Button x:Name="exitButton"
+                                Grid.Row="3" Background="#405060"
+                                HorizontalAlignment="Stretch"
+                                CornerRadius="5" Margin="5" HorizontalContentAlignment="Left"
+                                Click="ExitButton">
+                            <Viewbox Stretch="Uniform">
+                                <TextBlock Text="➜] Exit" Margin="5" Foreground="White"/>
+                            </Viewbox>
+                        </Button>
+                    </Grid>
+                </Border>
             </Border>
-        </Border>
-        <Border Grid.Column="1" Background="#052535">
-            <ContentControl x:Name="MainContentArea"/>
-        </Border>
+            <Border Grid.Column="1" Background="#052535">
+                <ContentControl x:Name="MainContentArea"/>
+            </Border>
+        </Grid>
+        <Grid Name="AddGameOverlay" IsVisible="False" Background="#80101010"
+        RowDefinitions="*, 3*, *" ColumnDefinitions="*, 2*, *">
+                <Border Grid.Row="1" Grid.Column="1" Background="#405060" CornerRadius="5">
+                        <Grid RowDefinitions="*, 3*, *" HorizontalAlignment="Stretch">
+                            <Viewbox Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="*, Auto" HorizontalAlignment="Stretch" Width="300">
+                                    <TextBox Grid.Column="0" x:Name="GameDirectoryTextBox" Margin="5" HorizontalAlignment="Stretch"/>
+                                    <Button Grid.Column="1" Content="Browse" Click="BrowseGameDirectory" Margin="5" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Viewbox>
+                            <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="Auto, *" RowDefinitions="*, *, *" Width="300">
+                                    <Label Grid.Row="0" Content="Game Name:" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5"/>
+                                    
+                                    <Label Grid.Row="1" Content="Genre:" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5"/>
+                                    
+                                    <Label Grid.Row="2" Content="Your Rate:" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5"/>
+                                </Grid>
+                             </Viewbox>
+                            <Viewbox Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="*, *" Width="300">
+                                    <Button Grid.Column="0" Content="Cancel" Margin="10, 5, 10, 5" HorizontalAlignment="Center" Click="CancelAddGame"/>
+                                    <Button Grid.Column="1" Content="Confirm" Margin="10, 5, 10, 5" HorizontalAlignment="Center" Click="ConfirmAddGame"/>
+                                </Grid>
+                            </Viewbox>
+                        </Grid>
+                </Border>
+        </Grid>
     </Grid>
 
 </Window>
