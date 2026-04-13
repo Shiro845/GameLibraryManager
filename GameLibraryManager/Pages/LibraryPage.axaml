@@ -1,8 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:gamelibrarymanager="using:GameLibraryManager"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:local="using:GameLibraryManager"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.LibraryPage">
         <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
@@ -62,35 +64,45 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="5*"/>
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Background="#455565" ColumnDefinitions="3*, 2*, 3*, 4*">
-                                <Border Grid.Column="0" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
-                                        VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Name" Foreground="White" Margin="0, 2, 0, 2"/>
+                                <Border Grid.Row="0" Background="#455565" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <Grid Width="800" Height="50" Background="#455565" ColumnDefinitions="2*, 2*, 2*, 4*">
+                                            <Border Grid.Column="0" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
+                                                    VerticalAlignment="Center" Margin="10, 5, 0, 5">
+                                                <Viewbox Margin="8" HorizontalAlignment="Left">
+                                                    <TextBlock Text="Name" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <Border Grid.Column="1" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
+                                                    VerticalAlignment="Center" Margin="10, 5, 0, 5">
+                                                <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
+                                                    <TextBlock Text="Genre" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <Border Grid.Column="2" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
+                                                    VerticalAlignment="Center" Margin="10, 5, 0, 5">
+                                                <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
+                                                    <TextBlock Text="Your Rate" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                </Viewbox>
+                                            </Border>
+                                            <Border Grid.Column="3" BorderBrush="#50FFFFFF"
+                                                    VerticalAlignment="Center" Margin="10, 5, 0, 5">
+                                                <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
+                                                    <TextBlock Text="Actions" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                </Viewbox>
+                                            </Border>
+                                        </Grid>
                                     </Viewbox>
                                 </Border>
-                                <Border Grid.Column="1" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
-                                        VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Genre" Foreground="White" Margin="0, 2, 0, 2"/>
-                                    </Viewbox>
-                                </Border>
-                                <Border Grid.Column="2" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
-                                        VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Your Rate" Foreground="White" Margin="0, 2, 0, 2"/>
-                                    </Viewbox>
-                                </Border>
-                                <Border Grid.Column="3" BorderBrush="#50FFFFFF"
-                                        VerticalAlignment="Center" Margin="10, 5, 0, 5">
-                                    <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                        <TextBlock Text="Actions" Foreground="White" Margin="0, 2, 0, 2"/>
-                                    </Viewbox>
-                                </Border>
-                            </Grid>
-                            <ListBox Grid.Row="1" Background="#354555">
-                        
-                            </ListBox>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl ItemsSource="{Binding Games}" x:CompileBindings="False">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:GameUserControl/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
                         </Grid>
                     </Border>
                 </Border>

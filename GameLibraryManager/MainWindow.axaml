@@ -126,13 +126,13 @@
                             <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Stretch">
                                 <Grid ColumnDefinitions="Auto, *" RowDefinitions="*, *, *" Width="300">
                                     <Label Grid.Row="0" Content="Game Name:" VerticalAlignment="Center"/>
-                                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5"/>
+                                    <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="5"/>
                                     
                                     <Label Grid.Row="1" Content="Genre:" VerticalAlignment="Center"/>
-                                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5"/>
+                                    <TextBox x:Name="GenreTextBox" Grid.Row="1" Grid.Column="1" Margin="5"/>
                                     
                                     <Label Grid.Row="2" Content="Your Rate:" VerticalAlignment="Center"/>
-                                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5"/>
+                                    <TextBox x:Name="RateTextBox" Grid.Row="2" Grid.Column="1" Margin="5"/>
                                 </Grid>
                              </Viewbox>
                             <Viewbox Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Stretch">

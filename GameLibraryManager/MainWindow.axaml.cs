@@ -1,22 +1,31 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using Avalonia.Controls;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
-using GameLibraryManager.Pages;
 using Avalonia.Platform.Storage;    
+using GameLibraryManager.Pages;
+using static GameLibraryManager.GameUserControl;
 
 namespace GameLibraryManager
 {
     public partial class MainWindow : Window
     {
-        public UserControl HomePage => new HomePage();
-        public UserControl LibraryPage => new LibraryPage();
-        public UserControl SettingsPage => new SettingsPage();
+        public ObservableCollection<GameUserControl.Game> Games { get; set; } = new ObservableCollection<GameUserControl.Game>();
+        public UserControl HomePage;
+        public UserControl LibraryPage;
+        public UserControl SettingsPage;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            HomePage = new HomePage();
+            LibraryPage = new LibraryPage();
+            LibraryPage.DataContext = this;
+            SettingsPage = new SettingsPage();
+
             MainContentArea.Content = LibraryPage;
         }
 
@@ -42,14 +51,23 @@ namespace GameLibraryManager
         }
         public void ConfirmAddGame(object sender, RoutedEventArgs e)
         {
+            AddGameToList();
             AddGameOverlay.IsVisible = false;
         }
         public void CancelAddGame(object sender, RoutedEventArgs e)
         {
             AddGameOverlay.IsVisible = false;
         }
+        public void AddGameToList()
+        {
+            Games.Add(new GameUserControl.Game {Name = NameTextBox.Text, Genre = GenreTextBox.Text, Rate = RateTextBox.Text, FilePath = GameDirectoryTextBox.Text});
+        }
+        public void DeleteGame(Game game)
+        {
+            Games.Remove(game);
+        }
 
-        public async void BrowseGameDirectory(object sender, RoutedEventArgs e)
+        public async void BrowseGameDirectory(object sender, RoutedEventArgs e) 
         {
             var storage = TopLevel.GetTopLevel(this)?.StorageProvider;
 

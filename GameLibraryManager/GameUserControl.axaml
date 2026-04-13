@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="50"
+             x:Class="GameLibraryManager.GameUserControl" x:CompileBindings="False"
+             Background="#607080">
+             <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                 <Grid Height="50" Width="800" ColumnDefinitions="2*, 2*, 2*, 4*">
+                     <Label Grid.Column="0" Content="{Binding Name}" FontSize="18" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="2" Foreground="White"/>
+                     <TextBlock Grid.Column="1" Text="{Binding Genre}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
+                     <TextBlock Grid.Column="2" Text="{Binding Rate}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
+                     <Grid Grid.Column="3" ColumnDefinitions="*, *, *" Margin="5">
+                         <Button Grid.Column="0" Content="Launch" Click="LaunchButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
+                         <Button Grid.Column="1" Content="Edit" Click="EditButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
+                         <Button Grid.Column="2" Content="Delete" Click="DeleteButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
+                     </Grid>
+                 </Grid>
+             </Viewbox>   
+</UserControl>
