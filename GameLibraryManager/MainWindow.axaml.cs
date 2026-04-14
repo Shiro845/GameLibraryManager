@@ -2,6 +2,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;    
@@ -10,8 +12,10 @@ using static GameLibraryManager.GameUserControl;
 
 namespace GameLibraryManager
 {
+
     public partial class MainWindow : Window
     {
+        public static MainWindow? Instance { get; private set; }
         public ObservableCollection<GameUserControl.Game> Games { get; set; } = new ObservableCollection<GameUserControl.Game>();
         public UserControl HomePage;
         public UserControl LibraryPage;
@@ -20,6 +24,7 @@ namespace GameLibraryManager
         public MainWindow()
         {
             InitializeComponent();
+            Instance = this;
 
             HomePage = new HomePage();
             LibraryPage = new LibraryPage();
@@ -49,8 +54,23 @@ namespace GameLibraryManager
         {
             AddGameOverlay.IsVisible = true;
         }
-        public void ConfirmAddGame(object sender, RoutedEventArgs e)
+        public async void ConfirmAddGame(object sender, RoutedEventArgs e)
         {
+            foreach (var game in Games)
+            {
+                if (game.Name == NameTextBox.Text)
+                {
+                    ErrorText.Text = App.GetText("NameExists");
+                    ErrorPopup.IsVisible = true;
+                    return;
+                }
+            }
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(GenreComboBox.Text) || string.IsNullOrWhiteSpace(RateComboBox.Text) || string.IsNullOrWhiteSpace(GameDirectoryTextBox.Text))
+            {
+                ErrorText.Text = App.GetText("FillAllFields");
+                ErrorPopup.IsVisible = true;
+                return;
+            }
             AddGameToList();
             AddGameOverlay.IsVisible = false;
         }
@@ -60,11 +80,15 @@ namespace GameLibraryManager
         }
         public void AddGameToList()
         {
-            Games.Add(new GameUserControl.Game {Name = NameTextBox.Text, Genre = GenreTextBox.Text, Rate = RateTextBox.Text, FilePath = GameDirectoryTextBox.Text});
+            Games.Add(new GameUserControl.Game {Name = NameTextBox.Text!, Genre = GenreComboBox.Text!, Rate = RateComboBox.Text! + "/5", FilePath = GameDirectoryTextBox.Text!});
         }
         public void DeleteGame(Game game)
         {
             Games.Remove(game);
+        }
+        public void CloseError(object sender, RoutedEventArgs e)
+        {
+            ErrorPopup.IsVisible = false;
         }
 
         public async void BrowseGameDirectory(object sender, RoutedEventArgs e) 
@@ -73,12 +97,12 @@ namespace GameLibraryManager
 
             var files = await storage!.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                Title = "Select game file",
+                Title = App.GetText("SelectGameFile"),
                 AllowMultiple = false,
                 FileTypeFilter = new[]
                 {
-                    new FilePickerFileType("Executable files") { Patterns = new[] { "*.exe"} },
-                    new FilePickerFileType("All files") { Patterns = new[] { "*.*" } }
+                    new FilePickerFileType(App.GetText("ExecutableFiles")) { Patterns = new[] { "*.exe* **"} },
+                    new FilePickerFileType(App.GetText("AllFiles")) { Patterns = new[] { "*.*" } }
                 }
             });
 

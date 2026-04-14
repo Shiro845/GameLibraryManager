@@ -6,15 +6,15 @@
              x:Class="GameLibraryManager.GameUserControl" x:CompileBindings="False"
              Background="#607080">
              <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                 <Grid Height="50" Width="800" ColumnDefinitions="2*, 2*, 2*, 4*">
+                 <Grid Height="50" Width="800" ColumnDefinitions="6*, 4*, 3*, 13*">
                      <Label Grid.Column="0" Content="{Binding Name}" FontSize="18" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="2" Foreground="White"/>
                      <TextBlock Grid.Column="1" Text="{Binding Genre}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
                      <TextBlock Grid.Column="2" Text="{Binding Rate}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
-                     <Grid Grid.Column="3" ColumnDefinitions="*, *, *" Margin="5">
-                         <Button Grid.Column="0" Content="Launch" Click="LaunchButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
-                         <Button Grid.Column="1" Content="Edit" Click="EditButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
-                         <Button Grid.Column="2" Content="Delete" Click="DeleteButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
+                     <Grid Grid.Column="3" ColumnDefinitions="*, *, *" Margin="20, 5, 5, 5">
+                         <Button Grid.Column="0" Content="{DynamicResource Launch}" Click="LaunchButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
+                         <Button Grid.Column="1" Content="{DynamicResource Edit}" Click="EditButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
+                         <Button Grid.Column="2" Content="{DynamicResource Delete}" Click="DeleteButton_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="2"/>
                      </Grid>
                  </Grid>
-             </Viewbox>   
+             </Viewbox>
 </UserControl>

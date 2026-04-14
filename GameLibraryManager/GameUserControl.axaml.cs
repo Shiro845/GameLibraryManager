@@ -2,22 +2,22 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using Avalonia.VisualTree;
+using System.IO;
 
 namespace GameLibraryManager;
 
 public partial class GameUserControl : UserControl
 {
-    public class Game
+    public MainWindow mainWindow = MainWindow.Instance!;
+    public struct Game
     {
-        public string Name { get; set; } = "";
-        public string Genre { get; set; } = "";
-        public string Rate { get; set; } = "";
-        public string FilePath { get; set; } = "";
+        public string Name { get; set; }
+        public string Genre { get; set; }
+        public string Rate { get; set; }
+        public string FilePath { get; set; }
     }
     public GameUserControl()
-    {
+    { 
         InitializeComponent();
     }
 
@@ -25,14 +25,17 @@ public partial class GameUserControl : UserControl
     {
         if (DataContext is Game gameData)
         {
-            if (!string.IsNullOrEmpty(gameData.FilePath))
+            if (!File.Exists(gameData.FilePath))
             {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = gameData.FilePath,
-                    UseShellExecute = true
-                });
+                mainWindow.ErrorText.Text = App.GetText("GameFileNotFound");
+                mainWindow.ErrorPopup.IsVisible = true;
+                return;
             }
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = gameData.FilePath,
+                UseShellExecute = true
+            });
         }
     }
 
@@ -42,8 +45,6 @@ public partial class GameUserControl : UserControl
     }
     public void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        var mainWindow = this.FindAncestorOfType<MainWindow>();
-
         if (mainWindow != null && DataContext is Game gameToDelete)
         {
             mainWindow.Games.Remove(gameToDelete);

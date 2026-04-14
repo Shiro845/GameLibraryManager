@@ -4,7 +4,6 @@
              xmlns:gamelibrarymanager="using:GameLibraryManager"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:local="using:GameLibraryManager"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.LibraryPage">
         <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
@@ -23,7 +22,7 @@
                 <Grid Grid.Row="0">
                     <Label HorizontalAlignment="Left">
                         <Viewbox Stretch="Uniform">
-                            <TextBlock Text="My Library" Margin="5" Foreground="White"/>
+                            <TextBlock Text="{DynamicResource MyLibrary}" Margin="5" Foreground="White"/>
                         </Viewbox>
                     </Label>
                 </Grid>
@@ -36,10 +35,10 @@
                     BorderBrush="OrangeRed" BorderThickness="2" CornerRadius="5"
                     Padding="1">
                         <Viewbox Stretch="Uniform">
-                            <TextBox x:Name="searchBox" 
+                            <TextBox x:Name="searchBox"
                             Background="#253545" MaxLength="60"
                             Foreground="LightGray" Margin="3"
-                            PlaceholderText="🔍︎ Search games..."
+                            PlaceholderText="{DynamicResource Search}"
                             BorderBrush="#80ffffff"/>
                         </Viewbox>
                     </Border>
@@ -47,7 +46,7 @@
                     BorderBrush="OrangeRed" BorderThickness="2" 
                     CornerRadius="5" Padding="1">
                         <Viewbox Stretch="Uniform">
-                            <Button x:Name="addGameButton" Content="+ Add Game"
+                            <Button x:Name="addGameButton" Content="{DynamicResource AddGame}"
                             Margin="3" BorderBrush="#80ffffff" 
                             VerticalAlignment="Stretch"
                             Background="Aqua"
@@ -66,29 +65,29 @@
                             </Grid.RowDefinitions>
                                 <Border Grid.Row="0" Background="#455565" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                        <Grid Width="800" Height="50" Background="#455565" ColumnDefinitions="2*, 2*, 2*, 4*">
+                                        <Grid Width="800" Height="50" Background="#455565" ColumnDefinitions="6*, 4*, 4*, 13*">
                                             <Border Grid.Column="0" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                                     VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                                 <Viewbox Margin="8" HorizontalAlignment="Left">
-                                                    <TextBlock Text="Name" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                    <TextBlock Text="{DynamicResource Name}" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
                                                 </Viewbox>
                                             </Border>
                                             <Border Grid.Column="1" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                                     VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                                 <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                                    <TextBlock Text="Genre" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                    <TextBlock Text="{DynamicResource Genre}" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
                                                 </Viewbox>
                                             </Border>
                                             <Border Grid.Column="2" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                                     VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                                 <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                                    <TextBlock Text="Your Rate" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                    <TextBlock Text="{DynamicResource YourRate}" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
                                                 </Viewbox>
                                             </Border>
                                             <Border Grid.Column="3" BorderBrush="#50FFFFFF"
                                                     VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                                 <Viewbox Stretch="Uniform" Margin="8" HorizontalAlignment="Left">
-                                                    <TextBlock Text="Actions" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
+                                                    <TextBlock Text="{DynamicResource Actions}" FontSize="20" Foreground="White" Margin="0, 2, 0, 2"/>
                                                 </Viewbox>
                                             </Border>
                                         </Grid>
@@ -98,7 +97,7 @@
                                 <ItemsControl ItemsSource="{Binding Games}" x:CompileBindings="False">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <local:GameUserControl/>
+                                            <gamelibrarymanager:GameUserControl/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

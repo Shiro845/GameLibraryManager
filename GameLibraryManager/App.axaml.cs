@@ -20,5 +20,13 @@ namespace GameLibraryManager
 
             base.OnFrameworkInitializationCompleted();
         }
+        public static string GetText(string key)
+        {
+            if (App.Current != null && App.Current.Resources.TryGetResource(key, null, out var value))
+            {
+                return value?.ToString() ?? key;
+            }
+            return key;
+        }
     }
 }

@@ -15,18 +15,22 @@
             <Grid>
                 <Grid.RowDefinitions>
                    <RowDefinition Height="*"/>
-                   <RowDefinition Height="*"/>
-                   <RowDefinition Height="5*"/>
+                   <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Label HorizontalAlignment="Left">
                         <Viewbox Stretch="Uniform">
-                            <TextBlock Text="Settings" Margin="5" Foreground="White"/>
+                            <TextBlock Text="{DynamicResource Settings}" Margin="5" Foreground="White"/>
                         </Viewbox>
                     </Label>
                 </Grid>
                 <StackPanel Grid.Row="1">
-
+                    <ComboBox x:Name="LanguageComboBox" 
+                              SelectionChanged="LanguageComboBox_SelectionChanged" 
+                              Width="150" Margin="20"
+                              SelectedIndex="0"> <ComboBoxItem Tag="English">English</ComboBoxItem>
+                        <ComboBoxItem Tag="Ukrainian">Українська</ComboBoxItem>
+                    </ComboBox>
                 </StackPanel>
             </Grid>
         </Border>
