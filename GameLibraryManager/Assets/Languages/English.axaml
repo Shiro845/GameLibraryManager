@@ -20,4 +20,8 @@
     <sys:String x:Key="ExecutableFiles">Executable files</sys:String>
     <sys:String x:Key="AllFiles">All files</sys:String>
     <sys:String x:Key="GameFileNotFound">Game file not found!</sys:String>
+    <sys:String x:Key="InterfaceLanguage">Interface Language</sys:String>
+    <sys:String x:Key="WindowOpacity">Window Opacity</sys:String>
+    <sys:String x:Key="Resolution">Resolution</sys:String>
+    <sys:String x:Key="Fullscreen">Fullscreen</sys:String>
 </ResourceDictionary>

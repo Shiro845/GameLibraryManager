@@ -20,4 +20,8 @@
     <sys:String x:Key="ExecutableFiles">Виконувані файли</sys:String>
     <sys:String x:Key="AllFiles">Всі файли</sys:String>
     <sys:String x:Key="GameFileNotFound">Файл ігри не знайдено!</sys:String>
+    <sys:String x:Key="InterfaceLanguage">Мова інтерфейсу</sys:String>
+    <sys:String x:Key="WindowOpacity">Прозорість вікна</sys:String>
+    <sys:String x:Key="Resolution">Роздільна здатність</sys:String>
+    <sys:String x:Key="Fullscreen">Повний екран</sys:String>
 </ResourceDictionary>

@@ -12,7 +12,7 @@ namespace GameLibraryManager.Pages
         {
             InitializeComponent();
         }
-        public void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (LanguageComboBox == null) return;
 
@@ -34,6 +34,44 @@ namespace GameLibraryManager.Pages
             };
 
             currentDict.Add(newDict);
+        }
+
+        private void OpacitySlider_ValueChanged(object sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (OpacitySlider == null) return;
+
+            if (OpacitySlider.Value is double opacity)
+            {
+                MainWindow.Instance!.Opacity = opacity;
+            }
+        }
+        private void Resolution_Changed(object? sender, SelectionChangedEventArgs e)
+        {
+            if (ResolutionComboBox?.SelectedItem is ComboBoxItem item && item.Tag != null)
+            {
+                var res = item.Tag.ToString()!.Split(',');
+                int width = int.Parse(res[0]);
+                int height = int.Parse(res[1]);
+
+                if (MainWindow.Instance != null)
+                {
+                    MainWindow.Instance.Width = width;
+                    MainWindow.Instance.Height = height;
+                    MainWindow.Instance.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                }
+            }
+        }
+        private void FullscreenCheckBox_IsCheckedChanged(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (FullscreenCheckBox == null) return;
+            if (FullscreenCheckBox.IsChecked == true)
+            {
+                if (MainWindow.Instance != null) { MainWindow.Instance.WindowState = WindowState.FullScreen; }
+            }
+            else
+            {
+                if (MainWindow.Instance != null) { MainWindow.Instance.WindowState = WindowState.Normal; }
+            }
         }
     }
 }
