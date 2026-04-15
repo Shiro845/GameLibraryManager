@@ -24,4 +24,5 @@
     <sys:String x:Key="WindowOpacity">Прозорість вікна</sys:String>
     <sys:String x:Key="Resolution">Роздільна здатність</sys:String>
     <sys:String x:Key="Fullscreen">Повний екран</sys:String>
+    <sys:String x:Key="LastLaunch">Останній запуск</sys:String>
 </ResourceDictionary>

@@ -37,7 +37,7 @@
                         <Viewbox Stretch="Uniform">
                             <TextBox x:Name="searchBox"
                             Background="#253545" MaxLength="60"
-                            Foreground="LightGray" Margin="3"
+                            Foreground="LightGray" Margin="3" TextChanged="OnSearchTextChanged"
                             PlaceholderText="{DynamicResource Search}"
                             BorderBrush="#80ffffff"/>
                         </Viewbox>
@@ -94,7 +94,7 @@
                                     </Viewbox>
                                 </Border>
                             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                                <ItemsControl ItemsSource="{Binding Games}" x:CompileBindings="False">
+                                <ItemsControl x:Name="GamesControl" ItemsSource="{Binding Games}" x:CompileBindings="False">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <gamelibrarymanager:GameUserControl/>

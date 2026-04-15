@@ -25,7 +25,6 @@
                     </Label>
                 </Grid>
                 <StackPanel Grid.Row="1">
-
                 </StackPanel>
             </Grid>        
         </Border>

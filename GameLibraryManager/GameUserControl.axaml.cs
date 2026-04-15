@@ -3,18 +3,19 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System.IO;
+using GameLibraryManager.Pages;
 
 namespace GameLibraryManager;
 
 public partial class GameUserControl : UserControl
 {
     public MainWindow mainWindow = MainWindow.Instance!;
-    public struct Game
+    public class Game
     {
-        public string Name { get; set; }
-        public string Genre { get; set; }
-        public string Rate { get; set; }
-        public string FilePath { get; set; }
+        public string? Name { get; set; }
+        public string? Genre { get; set; }
+        public string? Rate { get; set; }
+        public string? FilePath { get; set; }
     }
     public GameUserControl()
     { 
@@ -41,7 +42,16 @@ public partial class GameUserControl : UserControl
 
     public void EditButton_Click(object sender, RoutedEventArgs e)
     {
-        
+         mainWindow.ShowOverlay();
+         if (DataContext is Game gameData)
+         {
+             mainWindow.GameToEdit = gameData;
+
+             mainWindow.NameTextBox.Text = gameData.Name;
+             mainWindow.GenreComboBox.Text = gameData.Genre;
+             mainWindow.RateComboBox.Text = gameData.Rate;
+             mainWindow.GameDirectoryTextBox.Text = gameData.FilePath;
+         }
     }
     public void DeleteButton_Click(object sender, RoutedEventArgs e)
     {

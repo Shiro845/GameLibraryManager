@@ -24,4 +24,5 @@
     <sys:String x:Key="WindowOpacity">Window Opacity</sys:String>
     <sys:String x:Key="Resolution">Resolution</sys:String>
     <sys:String x:Key="Fullscreen">Fullscreen</sys:String>
+    <sys:String x:Key="LastLaunch">Last Launch</sys:String>
 </ResourceDictionary>

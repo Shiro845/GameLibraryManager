@@ -16,10 +16,12 @@ namespace GameLibraryManager
     public partial class MainWindow : Window
     {
         public static MainWindow? Instance { get; private set; }
-        public ObservableCollection<GameUserControl.Game> Games { get; set; } = new ObservableCollection<GameUserControl.Game>();
-        public UserControl HomePage;
-        public UserControl LibraryPage;
-        public UserControl SettingsPage;
+        public ObservableCollection<Game> Games { get; set; } = new ObservableCollection<GameUserControl.Game>();
+        public Game? GameToEdit { get; set; }
+
+        public GameLibraryManager.Pages.HomePage HomePage;
+        public GameLibraryManager.Pages.LibraryPage LibraryPage;
+        public GameLibraryManager.Pages.SettingsPage SettingsPage;
 
         public MainWindow()
         {
@@ -58,7 +60,7 @@ namespace GameLibraryManager
         {
             foreach (var game in Games)
             {
-                if (game.Name == NameTextBox.Text)
+                if (game.Name == NameTextBox.Text && game != GameToEdit)
                 {
                     ErrorText.Text = App.GetText("NameExists");
                     ErrorPopup.IsVisible = true;
@@ -80,7 +82,20 @@ namespace GameLibraryManager
         }
         public void AddGameToList()
         {
-            Games.Add(new GameUserControl.Game {Name = NameTextBox.Text!, Genre = GenreComboBox.Text!, Rate = RateComboBox.Text! + "/5", FilePath = GameDirectoryTextBox.Text!});
+            if (GameToEdit != null)
+            {
+                GameToEdit.Name = NameTextBox.Text!;
+                GameToEdit.Genre = GenreComboBox.Text!;
+                GameToEdit.Rate = RateComboBox.Text!;
+                GameToEdit.FilePath = GameDirectoryTextBox.Text!;
+
+                GameToEdit = null;
+            }
+            else
+            {
+                Games.Add(new GameUserControl.Game {Name = NameTextBox.Text!, Genre = GenreComboBox.Text!, Rate = RateComboBox.Text! + "/5", FilePath = GameDirectoryTextBox.Text!});
+            }
+            LibraryPage.Instance?.UpdateGamesList();
         }
         public void DeleteGame(Game game)
         {
@@ -101,7 +116,7 @@ namespace GameLibraryManager
                 AllowMultiple = false,
                 FileTypeFilter = new[]
                 {
-                    new FilePickerFileType(App.GetText("ExecutableFiles")) { Patterns = new[] { "*.exe* **"} },
+                    new FilePickerFileType(App.GetText("ExecutableFiles")) { Patterns = new[] { "*.exe*"} },
                     new FilePickerFileType(App.GetText("AllFiles")) { Patterns = new[] { "*.*" } }
                 }
             });
