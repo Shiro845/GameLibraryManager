@@ -1,58 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;
 
 namespace GameLibraryManager.Pages
 {
-    public partial class LibraryPage : UserControl
+    public partial class LibraryPage : UserControl, INotifyPropertyChanged
     {
         public static LibraryPage? Instance { get; private set; }
+        
+        public new event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
         public LibraryPage()
         {
             InitializeComponent();
             Instance = this;
-        }
-
-        private async void AddGameButton(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = (MainWindow)TopLevel.GetTopLevel(this)!;
-            mainWindow.ShowOverlay();
-        }
-        private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var searchText = searchBox.Text?.ToLower() ?? "";
-            var allGames = MainWindow.Instance?.Games;
-
-            if (allGames == null) return;
-
-            if (string.IsNullOrWhiteSpace(searchText))
+            DataContext = this;
+            
+            if (MainWindow.Instance != null)
             {
-                GamesControl.ItemsSource = allGames;
-            }
-            else
-            {
-                var filteredGames = allGames.Where(g =>
-                g.Name!.ToLower().Contains(searchText)).ToList();
-                GamesControl.ItemsSource = filteredGames;
+                MainWindow.Instance.Games.CollectionChanged += (s, e) => UpdateGamesList();
             }
         }
+
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged();
+                    UpdateGamesList();
+                }
+            }
+        }
+
+        public ObservableCollection<Game> FilteredGames { get; } = new();
+
         public void UpdateGamesList()
         {
-            if (GamesControl != null)
+            var allGames = MainWindow.Instance?.Games;
+            if (allGames == null) return;
+
+            var query = SearchText?.ToLower() ?? "";
+            var results = allGames.Where(g =>
+                string.IsNullOrWhiteSpace(query) ||
+                (g.Name?.ToLower().Contains(query) ?? false) ||
+                (g.Genre?.ToLower().Contains(query) ?? false)).ToList();
+
+            FilteredGames.Clear();
+            foreach (var game in results)
             {
-                var temp = GamesControl.ItemsSource;
-                GamesControl.ItemsSource = null;
-                GamesControl.ItemsSource = temp;
+                FilteredGames.Add(game);
             }
+            OnPropertyChanged(nameof(FilteredGames));
         }
 
-        private void searchBox_TextChanged(object? sender, TextChangedEventArgs e)
+        private void AddGameButton(object sender, RoutedEventArgs e)
         {
+            MainWindow.Instance?.ShowOverlay();
         }
     }
 }

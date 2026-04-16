@@ -25,4 +25,10 @@
     <sys:String x:Key="Resolution">Resolution</sys:String>
     <sys:String x:Key="Fullscreen">Fullscreen</sys:String>
     <sys:String x:Key="LastLaunch">Last Launch</sys:String>
+    <sys:String x:Key="Browse">Browse</sys:String>
+    <sys:String x:Key="GameName">Game Name:</sys:String>
+    <sys:String x:Key="GameGenre">Game Genre:</sys:String>
+    <sys:String x:Key="GameRate">Your Rate:</sys:String>
+    <sys:String x:Key="Confirm">Confirm</sys:String>
+    <sys:String x:Key="Cancel">Cancel</sys:String>
 </ResourceDictionary>

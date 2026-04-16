@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml.Styling;
@@ -8,70 +10,88 @@ namespace GameLibraryManager.Pages
 {
     public partial class SettingsPage : UserControl
     {
+        public new event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         public SettingsPage()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
-        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private double _windowOpacity = 1.0;
+        public double WindowOpacity
         {
-            if (LanguageComboBox == null) return;
-
-            if (LanguageComboBox.SelectedItem is ComboBoxItem selectedItem)
+            get => _windowOpacity;
+            set
             {
-                string langCode = selectedItem.Tag?.ToString() ?? "Ukrainian";
-
-                ChangeLanguage(langCode);
+                _windowOpacity = value;
+                if (MainWindow.Instance != null) MainWindow.Instance.Opacity = value;
+                OnPropertyChanged();
             }
         }
+
+        private bool _isFullscreen;
+        public bool IsFullscreen
+        {
+            get => _isFullscreen;
+            set
+            {
+                _isFullscreen = value;
+                if (MainWindow.Instance != null)
+                    MainWindow.Instance.WindowState = value ? WindowState.FullScreen : WindowState.Normal;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _selectedLanguageIndex;
+        public int SelectedLanguageIndex
+        {
+            get => _selectedLanguageIndex;
+            set
+            {
+                _selectedLanguageIndex = value;
+                string langCode = (value == 1) ? "Ukrainian" : "English";
+                ChangeLanguage(langCode);
+                OnPropertyChanged();
+            }
+        }
+
+        private int _selectedResolutionIndex;
+        public int SelectedResolutionIndex
+        {
+            get => _selectedResolutionIndex;
+            set
+            {
+                _selectedResolutionIndex = value;
+                ApplyResolution(value);
+                OnPropertyChanged();
+            }
+        }
+        private void ApplyResolution(int index)
+        {
+            if (MainWindow.Instance == null) return;
+
+            (int width, int height) = index switch
+            {
+                0 => (1280, 720),
+                1 => (1366, 768),
+                2 => (1600, 900),
+                3 => (1920, 1080),
+                4 => (2560, 1440),
+                5 => (3840, 2160),
+                _ => (1280, 720)
+            };
+            MainWindow.Instance.Width = width;
+            MainWindow.Instance.Height = height;
+            MainWindow.Instance.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        }   
         private void ChangeLanguage(string langCode)
         {
             var currentDict = App.Current!.Resources.MergedDictionaries;
             currentDict.Clear();
-
-            var newDict = new ResourceInclude(new Uri("avares://GameLibraryManager/Assets/Languages/" + langCode + ".axaml"))
-            {
-                Source = new Uri("avares://GameLibraryManager/Assets/Languages/" + langCode + ".axaml")
-            };
-
-            currentDict.Add(newDict);
-        }
-
-        private void OpacitySlider_ValueChanged(object sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (OpacitySlider == null) return;
-
-            if (OpacitySlider.Value is double opacity)
-            {
-                MainWindow.Instance!.Opacity = opacity;
-            }
-        }
-        private void Resolution_Changed(object? sender, SelectionChangedEventArgs e)
-        {
-            if (ResolutionComboBox?.SelectedItem is ComboBoxItem item && item.Tag != null)
-            {
-                var res = item.Tag.ToString()!.Split(',');
-                int width = int.Parse(res[0]);
-                int height = int.Parse(res[1]);
-
-                if (MainWindow.Instance != null)
-                {
-                    MainWindow.Instance.Width = width;
-                    MainWindow.Instance.Height = height;
-                    MainWindow.Instance.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                }
-            }
-        }
-        private void FullscreenCheckBox_IsCheckedChanged(object sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            if (FullscreenCheckBox == null) return;
-            if (FullscreenCheckBox.IsChecked == true)
-            {
-                if (MainWindow.Instance != null) { MainWindow.Instance.WindowState = WindowState.FullScreen; }
-            }
-            else
-            {
-                if (MainWindow.Instance != null) { MainWindow.Instance.WindowState = WindowState.Normal; }
-            }
+            var uri = new Uri($"avares://GameLibraryManager/Assets/Languages/{langCode}.axaml");
+            var resourceInclude = new ResourceInclude(uri) { Source = uri };
+            currentDict.Add(resourceInclude);
         }
     }
 }

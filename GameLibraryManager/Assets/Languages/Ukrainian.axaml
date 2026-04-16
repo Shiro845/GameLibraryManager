@@ -25,4 +25,10 @@
     <sys:String x:Key="Resolution">Роздільна здатність</sys:String>
     <sys:String x:Key="Fullscreen">Повний екран</sys:String>
     <sys:String x:Key="LastLaunch">Останній запуск</sys:String>
+    <sys:String x:Key="Browse">Огляд</sys:String>
+    <sys:String x:Key="GameName">Назва гри:</sys:String>
+    <sys:String x:Key="GameGenre">Жанр гри:</sys:String>
+    <sys:String x:Key="GameRate">Ваша оцінка:</sys:String>
+    <sys:String x:Key="Confirm">Підтвердити</sys:String>
+    <sys:String x:Key="Cancel">Скасувати</sys:String>
 </ResourceDictionary>

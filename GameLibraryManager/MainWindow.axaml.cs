@@ -1,23 +1,55 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
-using MsBox.Avalonia;
-using MsBox.Avalonia.Enums;
+using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;    
 using GameLibraryManager.Pages;
-using static GameLibraryManager.GameUserControl;
 
 namespace GameLibraryManager
 {
-
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+
+        private bool _isOverlayVisible;
+        private string _errorMessage = "";
+        private bool _isErrorVisible;
+        private Game? _gameToEdit;
+        public bool IsOverlayVisible
+        {
+            get => _isOverlayVisible;
+            set { _isOverlayVisible = value; OnPropertyChanged(); }
+        }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set { _errorMessage = value; OnPropertyChanged(); }
+        }
+
+        public bool IsErrorVisible
+        {
+            get => _isErrorVisible;
+            set { _isErrorVisible = value; OnPropertyChanged(); }
+        }
+
+        public Game? GameToEdit
+        {
+            get => _gameToEdit;
+            set { _gameToEdit = value; OnPropertyChanged(); }
+        }
+#pragma warning disable CS0108
+        public event PropertyChangedEventHandler? PropertyChanged;
+#pragma warning restore CS0108
+
+        protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
         public static MainWindow? Instance { get; private set; }
-        public ObservableCollection<Game> Games { get; set; } = new ObservableCollection<GameUserControl.Game>();
-        public Game? GameToEdit { get; set; }
+
+        public ObservableCollection<Game> Games { get; set; } = new ObservableCollection<Game>();
 
         public GameLibraryManager.Pages.HomePage HomePage;
         public GameLibraryManager.Pages.LibraryPage LibraryPage;
@@ -27,10 +59,13 @@ namespace GameLibraryManager
         {
             InitializeComponent();
             Instance = this;
+            this.DataContext = this;
+            IsOverlayVisible = false;
+            IsErrorVisible = false;
 
             HomePage = new HomePage();
             LibraryPage = new LibraryPage();
-            LibraryPage.DataContext = this;
+            LibraryPage.UpdateGamesList();
             SettingsPage = new SettingsPage();
 
             MainContentArea.Content = LibraryPage;
@@ -54,48 +89,41 @@ namespace GameLibraryManager
         }
         public void ShowOverlay()
         {
-            AddGameOverlay.IsVisible = true;
+            GameToEdit = new Game();
+            IsOverlayVisible = true;
         }
         public async void ConfirmAddGame(object sender, RoutedEventArgs e)
         {
-            foreach (var game in Games)
+            if (string.IsNullOrWhiteSpace(GameToEdit?.Name) ||
+                string.IsNullOrWhiteSpace(GameToEdit?.Genre) ||
+                string.IsNullOrWhiteSpace(GameToEdit?.Rate) ||
+                string.IsNullOrWhiteSpace(GameToEdit?.FilePath))
             {
-                if (game.Name == NameTextBox.Text && game != GameToEdit)
-                {
-                    ErrorText.Text = App.GetText("NameExists");
-                    ErrorPopup.IsVisible = true;
-                    return;
-                }
+                ErrorMessage = App.GetText("FillAllFields");
+                IsErrorVisible = true;
+                return;
             }
-            if (string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(GenreComboBox.Text) || string.IsNullOrWhiteSpace(RateComboBox.Text) || string.IsNullOrWhiteSpace(GameDirectoryTextBox.Text))
+            if (Games.Any(g => g.Name == GameToEdit.Name && g != GameToEdit))
             {
-                ErrorText.Text = App.GetText("FillAllFields");
-                ErrorPopup.IsVisible = true;
+                ErrorMessage = App.GetText("NameExists");
+                IsErrorVisible = true;
                 return;
             }
             AddGameToList();
-            AddGameOverlay.IsVisible = false;
         }
         public void CancelAddGame(object sender, RoutedEventArgs e)
         {
-            AddGameOverlay.IsVisible = false;
+            IsOverlayVisible = false;
+            GameToEdit = null;
         }
         public void AddGameToList()
         {
-            if (GameToEdit != null)
+            if (!Games.Contains(GameToEdit!))
             {
-                GameToEdit.Name = NameTextBox.Text!;
-                GameToEdit.Genre = GenreComboBox.Text!;
-                GameToEdit.Rate = RateComboBox.Text!;
-                GameToEdit.FilePath = GameDirectoryTextBox.Text!;
-
-                GameToEdit = null;
+                Games.Add(GameToEdit!);
             }
-            else
-            {
-                Games.Add(new GameUserControl.Game {Name = NameTextBox.Text!, Genre = GenreComboBox.Text!, Rate = RateComboBox.Text! + "/5", FilePath = GameDirectoryTextBox.Text!});
-            }
-            LibraryPage.Instance?.UpdateGamesList();
+            IsOverlayVisible = false;
+            GameToEdit = null;
         }
         public void DeleteGame(Game game)
         {
@@ -103,7 +131,7 @@ namespace GameLibraryManager
         }
         public void CloseError(object sender, RoutedEventArgs e)
         {
-            ErrorPopup.IsVisible = false;
+            IsErrorVisible = false;
         }
 
         public async void BrowseGameDirectory(object sender, RoutedEventArgs e) 
@@ -123,7 +151,8 @@ namespace GameLibraryManager
 
             if (files.Count > 0)
             {
-                 GameDirectoryTextBox.Text = files[0].Path.LocalPath;
+                if (GameToEdit == null) GameToEdit = new Game();
+                GameToEdit.FilePath = files[0].Path.LocalPath;
             }
         }
     }

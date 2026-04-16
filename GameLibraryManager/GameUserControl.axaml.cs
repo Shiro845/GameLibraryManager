@@ -1,5 +1,3 @@
-using System;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System.IO;
@@ -10,13 +8,6 @@ namespace GameLibraryManager;
 public partial class GameUserControl : UserControl
 {
     public MainWindow mainWindow = MainWindow.Instance!;
-    public class Game
-    {
-        public string? Name { get; set; }
-        public string? Genre { get; set; }
-        public string? Rate { get; set; }
-        public string? FilePath { get; set; }
-    }
     public GameUserControl()
     { 
         InitializeComponent();
@@ -28,8 +19,8 @@ public partial class GameUserControl : UserControl
         {
             if (!File.Exists(gameData.FilePath))
             {
-                mainWindow.ErrorText.Text = App.GetText("GameFileNotFound");
-                mainWindow.ErrorPopup.IsVisible = true;
+                mainWindow.ErrorMessage = App.GetText("GameFileNotFound");
+                mainWindow.IsErrorVisible = true;
                 return;
             }
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
@@ -45,19 +36,16 @@ public partial class GameUserControl : UserControl
          mainWindow.ShowOverlay();
          if (DataContext is Game gameData)
          {
-             mainWindow.GameToEdit = gameData;
-
-             mainWindow.NameTextBox.Text = gameData.Name;
-             mainWindow.GenreComboBox.Text = gameData.Genre;
-             mainWindow.RateComboBox.Text = gameData.Rate;
-             mainWindow.GameDirectoryTextBox.Text = gameData.FilePath;
-         }
+            mainWindow.GameToEdit = gameData;
+            mainWindow.IsOverlayVisible = true;
+        }
     }
     public void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         if (mainWindow != null && DataContext is Game gameToDelete)
         {
             mainWindow.Games.Remove(gameToDelete);
+            LibraryPage.Instance?.UpdateGamesList();
         }
     }
 }

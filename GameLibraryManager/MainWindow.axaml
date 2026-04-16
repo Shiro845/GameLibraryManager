@@ -2,9 +2,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameLibraryManager"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GameLibraryManager.MainWindow"
-        Title="GameLibraryManager"
+        Title="GameLibraryManager" 
         MinWidth="600" MinHeight="400"
         WindowStartupLocation="CenterScreen"
         Background="Aquamarine">
@@ -113,58 +114,56 @@
                 <ContentControl x:Name="MainContentArea"/>
             </Border>
         </Grid>
-        <Grid Name="AddGameOverlay" IsVisible="False" Background="#80101010"
-        RowDefinitions="*, 3*, *" ColumnDefinitions="*, 2*, *">
-            <Border Grid.Row="1" Grid.Column="1" Background="#405060" CornerRadius="5">
-                    <Grid RowDefinitions="*, 3*, *" HorizontalAlignment="Stretch">
-                        <Viewbox Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Stretch">
-                            <Grid ColumnDefinitions="*, Auto" HorizontalAlignment="Stretch" Width="300">
-                                <TextBox Grid.Column="0" x:Name="GameDirectoryTextBox" Margin="5" HorizontalAlignment="Stretch"/>
-                                <Button Grid.Column="1" Content="Browse" Click="BrowseGameDirectory" Margin="5" HorizontalAlignment="Right"/>
-                            </Grid>
-                        </Viewbox>
-                        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Stretch">
-                            <Grid ColumnDefinitions="Auto, *" RowDefinitions="*, *, *" Width="300">
-                                <Label Grid.Row="0" Content="Game Name:" VerticalAlignment="Center"/>
-                                <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Margin="5"/>
-                                
-                                <Label Grid.Row="1" Content="Genre:" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="GenreComboBox" Grid.Row="1" Grid.Column="1" Margin="5" MaxDropDownHeight="100" HorizontalAlignment="Stretch">
-                                    <ComboBoxItem Content="Action"/>
-                                    <ComboBoxItem Content="Adventure"/>
-                                    <ComboBoxItem Content="RPG"/>
-                                    <ComboBoxItem Content="Strategy"/>
-                                    <ComboBoxItem Content="SandBox"/>
-                                    <ComboBoxItem Content="MOBA"/>
-                                    <ComboBoxItem Content="Battle Royale"/>
-                                    <ComboBoxItem Content="Survival"/>
-                                    <ComboBoxItem Content="Another"/>
-                                </ComboBox> 
-                                <Label Grid.Row="2" Content="Your Rate:" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="RateComboBox" Grid.Row="2" Grid.Column="1" Margin="5" MaxDropDownHeight="100" HorizontalAlignment="Stretch">
-                                    <ComboBoxItem Content="1"/>
-                                    <ComboBoxItem Content="2"/>
-                                    <ComboBoxItem Content="3"/>
-                                    <ComboBoxItem Content="4"/>
-                                    <ComboBoxItem Content="5"/>
-                                </ComboBox>
-                            </Grid>
-                         </Viewbox>
-                        <Viewbox Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Stretch">
-                            <Grid ColumnDefinitions="*, *" Width="300">
-                                <Button Grid.Column="0" Content="Cancel" Margin="10, 5, 10, 5" HorizontalAlignment="Center" Click="CancelAddGame"/>
-                                <Button Grid.Column="1" Content="Confirm" Margin="10, 5, 10, 5" HorizontalAlignment="Center" Click="ConfirmAddGame"/>
-                            </Grid>
-                        </Viewbox>
+        <Grid ZIndex="50" IsVisible="{Binding IsOverlayVisible}" Background="#80101010" x:DataType="local:MainWindow"
+          RowDefinitions="*, 3*, *" ColumnDefinitions="*, 2*, *">
+        <Border Grid.Row="1" Grid.Column="1" Background="#405060" CornerRadius="5">
+            <Grid RowDefinitions="*, 3*, *" Margin="15">
+                <Viewbox Grid.Row="0" Stretch="Uniform">
+                    <Grid ColumnDefinitions="*, Auto" Width="300">
+                        <TextBox Text="{Binding GameToEdit.FilePath, Mode=TwoWay}"/>
+                        <Button Grid.Column="1" Content="{DynamicResource Browse}" Click="BrowseGameDirectory" Margin="5,0,0,0"/>
                     </Grid>
-            </Border>
-        </Grid>
-        <Border x:Name="ErrorPopup" Background="#CC000000" IsVisible="False">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Background="#2C5364">
-                <TextBlock x:Name="ErrorText" Foreground="White" Margin="0,0,0,10"/>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Stretch="Uniform">
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="*, *, *" Width="300">
+                        <Label VerticalContentAlignment="Center" Content="{DynamicResource GameName}"/>
+                        <TextBox Grid.Column="1" Text="{Binding GameToEdit.Name, Mode=TwoWay}" Margin="5"/>
+                        <Label VerticalContentAlignment="Center" Grid.Row="1" Content="{DynamicResource GameGenre}"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedValue="{Binding GameToEdit.Genre, Mode=TwoWay}" 
+                            SelectedValueBinding="{Binding Content}" x:CompileBindings="False" Margin="5" HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="Action"/>
+                            <ComboBoxItem Content="Strategy"/>
+                            <ComboBoxItem Content="RPG"/>
+                        </ComboBox>
+                        <Label VerticalContentAlignment="Center" Grid.Row="2" Content="{DynamicResource GameRate}"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" SelectedValue="{Binding GameToEdit.Rate, Mode=TwoWay}"
+                             SelectedValueBinding="{Binding Content}" x:CompileBindings="False" Margin="5" HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="1/5"/>
+                            <ComboBoxItem Content="2/5"/>
+                            <ComboBoxItem Content="3/5"/>
+                            <ComboBoxItem Content="4/5"/>
+                            <ComboBoxItem Content="5/5"/>
+                        </ComboBox>
+                    </Grid>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Stretch="Uniform">
+                    <Grid ColumnDefinitions="*, *" Width="300">
+                        <Button Grid.Column="0" Content="{DynamicResource Cancel}" HorizontalAlignment="Center" Click="CancelAddGame"/>
+                        <Button Grid.Column="1" Content="{DynamicResource Confirm}" HorizontalAlignment="Center" Click="ConfirmAddGame"/>
+                    </Grid>
+                </Viewbox>
+            </Grid>
+        </Border>
+    </Grid>
+
+    <Grid ZIndex="100" IsVisible="{Binding IsErrorVisible}" Background="#CC000000" x:DataType="local:MainWindow">
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Background="#2C5364" Padding="25" CornerRadius="8">
+            <StackPanel>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="White" Margin="0,0,0,15" TextAlignment="Center"/>
                 <Button Content="OK" Click="CloseError" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
+    </Grid>
     </Grid>
 
 </Window>
