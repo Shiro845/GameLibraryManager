@@ -9,158 +9,136 @@ using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using GameLibraryManager.Model;
 using GameLibraryManager.Pages;
+using GameLibraryManager.ViewModel;
 
-namespace GameLibraryManager
+namespace GameLibraryManager;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public static MainWindow? Instance { get; private set; }
+
+    public HomePage HomePage;
+    public LibraryPage LibraryPage;
+    public SettingsPage SettingsPage;
+
+    public MainWindow()
     {
+        InitializeComponent();
+        Instance = this;
+        this.DataContext = new MainViewModel();
 
-        private bool _isOverlayVisible;
-        private string _errorMessage = "";
-        private bool _isErrorVisible;
-        private Game? _gameToEdit;
-        public bool IsOverlayVisible
+        HomePage = new HomePage();
+        LibraryPage = new LibraryPage();
+        SettingsPage = new SettingsPage();
+        
+        if (this.DataContext is MainViewModel vm)
         {
-            get => _isOverlayVisible;
-            set { _isOverlayVisible = value; OnPropertyChanged(); }
+            vm.ApplyAllSettings();
         }
 
-        public string ErrorMessage
+        MainContentArea.Content = LibraryPage;
+    }
+
+    public void ShowHome(object sender, RoutedEventArgs e)
+    {
+        MainContentArea.Content = HomePage;
+    }
+    public void ShowLibrary(object sender, RoutedEventArgs e)
+    {
+        MainContentArea.Content = LibraryPage;
+    }
+    public void ShowSettings(object sender, RoutedEventArgs e)
+    {
+        MainContentArea.Content = SettingsPage;
+    }
+    public void ExitButton(object sender, RoutedEventArgs e)
+    {
+        Environment.Exit(0);
+    }
+    public void ShowOverlay()
+    {
+        if (this.DataContext is MainViewModel vm)
         {
-            get => _errorMessage;
-            set { _errorMessage = value; OnPropertyChanged(); }
+            vm.GameToEdit = new Game();
+            vm.IsOverlayVisible = true;
         }
-
-        public bool IsErrorVisible
+    }
+    public async void ConfirmAddGame(object sender, RoutedEventArgs e)
+    {
+        if (this.DataContext is MainViewModel vm)
         {
-            get => _isErrorVisible;
-            set { _isErrorVisible = value; OnPropertyChanged(); }
-        }
-
-        public Game? GameToEdit
-        {
-            get => _gameToEdit;
-            set { _gameToEdit = value; OnPropertyChanged(); }
-        }
-
-        public List<string> GenreList { get; } = new() { "Action", "Adventure", "RPG", "Strategy", "Simulator", "Sports", "Racing", "Puzzle", "Another" };
-        public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
-#pragma warning disable CS0108
-        public event PropertyChangedEventHandler? PropertyChanged;
-#pragma warning restore CS0108
-
-        protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
-        public static MainWindow? Instance { get; private set; }
-
-        public ObservableCollection<Game> Games { get; set; } = new ObservableCollection<Game>();
-
-        public HomePage HomePage;
-        public LibraryPage LibraryPage;
-        public SettingsPage SettingsPage;
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            Instance = this;
-            this.DataContext = this;
-            IsOverlayVisible = false;
-            IsErrorVisible = false;
-
-            HomePage = new HomePage();
-            HomePage.UpdateLaunchSortedGames();
-            LibraryPage = new LibraryPage();
-            LibraryPage.UpdateGamesList();
-            SettingsPage = new SettingsPage();
-
-            MainContentArea.Content = LibraryPage;
-        }
-
-        public void ShowHome(object sender, RoutedEventArgs e)
-        {
-            MainContentArea.Content = HomePage;
-        }
-        public void ShowLibrary(object sender, RoutedEventArgs e)
-        {
-            MainContentArea.Content = LibraryPage;
-        }
-        public void ShowSettings(object sender, RoutedEventArgs e)
-        {
-            MainContentArea.Content = SettingsPage;
-        }
-        public void ExitButton(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(0);
-        }
-        public void ShowOverlay()
-        {
-            GameToEdit = new Game();
-            IsOverlayVisible = true;
-        }
-        public async void ConfirmAddGame(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(GameToEdit?.Name) ||
-                string.IsNullOrWhiteSpace(GameToEdit?.Genre) ||
-                string.IsNullOrWhiteSpace(GameToEdit?.Rate) ||
-                string.IsNullOrWhiteSpace(GameToEdit?.FilePath))
+            if (string.IsNullOrWhiteSpace(vm.GameToEdit?.Name) ||
+            string.IsNullOrWhiteSpace(vm.GameToEdit?.Genre) ||
+            string.IsNullOrWhiteSpace(vm.GameToEdit?.Rate) ||
+            string.IsNullOrWhiteSpace(vm.GameToEdit?.FilePath))
             {
-                ErrorMessage = App.GetText("FillAllFields");
-                IsErrorVisible = true;
+                vm.ErrorMessage = App.GetText("FillAllFields");
+                vm.IsErrorVisible = true;
                 return;
             }
-            if (Games.Any(g => g.Name == GameToEdit.Name && g != GameToEdit))
+            if (vm.Games.Any(g => g.Name == vm.GameToEdit.Name && g != vm.GameToEdit))
             {
-                ErrorMessage = App.GetText("NameExists");
-                IsErrorVisible = true;
+                vm.ErrorMessage = App.GetText("NameExists");
+                vm.IsErrorVisible = true;
                 return;
             }
-            AddGameToList();
         }
-        public void CancelAddGame(object sender, RoutedEventArgs e)
+        AddGameToList();
+    }
+    public void CancelAddGame(object sender, RoutedEventArgs e)
+    {
+        if (this.DataContext is MainViewModel vm)
         {
-            IsOverlayVisible = false;
-            GameToEdit = null;
+            vm.IsOverlayVisible = false;
+            vm.GameToEdit = null;
         }
-        public void AddGameToList()
+    }
+    public void AddGameToList()
+    {
+        if (this.DataContext is MainViewModel vm)
         {
-            if (!Games.Contains(GameToEdit!))
+            if (!vm.Games.Contains(vm.GameToEdit!))
             {
-                Games.Add(GameToEdit!);
+                vm.Games.Add(vm.GameToEdit!);
             }
-            HomePage.Instance?.UpdateAll();
-            IsOverlayVisible = false;
-            GameToEdit = null;
+            vm.IsOverlayVisible = false;
+            vm.GameToEdit = null;
         }
-        public void DeleteGame(Game game)
+    }
+    public void DeleteGame(Game game)
+    {
+        if (this.DataContext is ViewModel.MainViewModel vm)
         {
-            Games.Remove(game);
+            vm.Games.Remove(game);
         }
-        public void CloseError(object sender, RoutedEventArgs e)
+    }
+    public void CloseError(object sender, RoutedEventArgs e)
+    {
+        if (this.DataContext is ViewModel.MainViewModel vm)
         {
-            IsErrorVisible = false;
+            vm.IsErrorVisible = false;
         }
+    }
 
-        public async void BrowseGameDirectory(object sender, RoutedEventArgs e) 
-        {
-            var storage = TopLevel.GetTopLevel(this)?.StorageProvider;
+    public async void BrowseGameDirectory(object sender, RoutedEventArgs e) 
+    {
+        var storage = TopLevel.GetTopLevel(this)?.StorageProvider;
 
-            var files = await storage!.OpenFilePickerAsync(new FilePickerOpenOptions
+        var files = await storage!.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = App.GetText("SelectGameFile"),
+            AllowMultiple = false,
+            FileTypeFilter = new[]
             {
-                Title = App.GetText("SelectGameFile"),
-                AllowMultiple = false,
-                FileTypeFilter = new[]
-                {
-                    new FilePickerFileType(App.GetText("ExecutableFiles")) { Patterns = new[] { "*.exe*"} },
-                    new FilePickerFileType(App.GetText("AllFiles")) { Patterns = new[] { "*.*" } }
-                }
-            });
-
-            if (files.Count > 0)
-            {
-                if (GameToEdit == null) GameToEdit = new Game();
-                GameToEdit.FilePath = files[0].Path.LocalPath;
+                new FilePickerFileType(App.GetText("ExecutableFiles")) { Patterns = new[] { "*.exe*"} },
+                new FilePickerFileType(App.GetText("AllFiles")) { Patterns = new[] { "*.*" } }
             }
+        });
+
+        if (files.Count > 0 && DataContext is MainViewModel vm)
+        {
+            if (vm.GameToEdit == null) vm.GameToEdit = new Game();
+            vm.GameToEdit.FilePath = files[0].Path.LocalPath;
         }
     }
 }

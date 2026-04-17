@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:gamelibrarymanager="using:GameLibraryManager"
-             xmlns:local="using:GameLibraryManager.Pages"
+             xmlns:vm="using:GameLibraryManager.ViewModel"
+             x:DataType="vm:MainViewModel"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Background="#052535"
@@ -28,7 +29,7 @@
                 </Grid>
                 <Grid Grid.Row="1" RowDefinitions=" *, *, 3*, 2*">
                     <Viewbox Grid.Row="0" Stretch="Uniform">
-                        <Grid ColumnDefinitions="Auto, 2*, Auto" Width="450" x:DataType="local:HomePage">
+                        <Grid ColumnDefinitions="Auto, 2*, Auto" Width="450">
                             <StackPanel Grid.Column="0">
                                 <TextBlock Text="{DynamicResource TotalGamesCount}" Foreground="White" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding TotalGamesCount}" Foreground="Pink" HorizontalAlignment="Center"/>

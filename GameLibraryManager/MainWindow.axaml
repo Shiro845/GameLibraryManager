@@ -4,6 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameLibraryManager"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:vm="using:GameLibraryManager.ViewModel"
+        x:DataType="vm:MainViewModel"
         x:Class="GameLibraryManager.MainWindow"
         Title="GameLibraryManager" 
         MinWidth="600" MinHeight="400"
@@ -114,7 +116,7 @@
                 <ContentControl x:Name="MainContentArea"/>
             </Border>
         </Grid>
-        <Grid ZIndex="50" IsVisible="{Binding IsOverlayVisible}" Background="#80101010" x:DataType="local:MainWindow"
+        <Grid ZIndex="50" IsVisible="{Binding IsOverlayVisible}" Background="#80101010"
           RowDefinitions="*, 3*, *" ColumnDefinitions="*, 2*, *">
         <Border Grid.Row="1" Grid.Column="1" Background="#405060" CornerRadius="5">
             <Grid RowDefinitions="*, 3*, *" Margin="15">
@@ -148,7 +150,7 @@
         </Border>
     </Grid>
 
-    <Grid ZIndex="100" IsVisible="{Binding IsErrorVisible}" Background="#CC000000" x:DataType="local:MainWindow">
+    <Grid ZIndex="100" IsVisible="{Binding IsErrorVisible}" Background="#CC000000">
         <Border VerticalAlignment="Center" HorizontalAlignment="Center" Background="#2C5364" Padding="25" CornerRadius="8">
             <StackPanel>
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="White" Margin="0,0,0,15" TextAlignment="Center"/>

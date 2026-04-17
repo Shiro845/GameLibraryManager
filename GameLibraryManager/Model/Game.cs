@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace GameLibraryManager.Model
 {
-    public class Game : INotifyPropertyChanged
+    public class Game : INotifyPropertyChanged 
     {
         private string? _name;
         private string? _genre;

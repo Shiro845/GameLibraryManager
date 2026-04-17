@@ -3,10 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:gamelibrarymanager="using:GameLibraryManager"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:pages="clr-namespace:GameLibraryManager.Pages"
-             xmlns:local="clr-namespace:GameLibraryManager"
+             xmlns:vm="using:GameLibraryManager.ViewModel"
+             x:DataType="vm:MainViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             Background="#052535" 
+             Background="#052535"
              x:Class="GameLibraryManager.Pages.LibraryPage">
         <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
             <Border.Background>
@@ -37,7 +37,7 @@
                     BorderBrush="OrangeRed" BorderThickness="2" CornerRadius="5"
                     Padding="1">
                         <Viewbox Stretch="Uniform">
-                            <TextBox x:DataType="pages:LibraryPage" Text="{Binding SearchText, Mode=TwoWay}"
+                            <TextBox Text="{Binding SearchText, Mode=TwoWay}"
                             Background="#253545" MaxLength="60"
                             Foreground="LightGray" Margin="3"
                             PlaceholderText="{DynamicResource Search}"
@@ -96,7 +96,7 @@
                                     </Viewbox>
                                 </Border>
                             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                                <ItemsControl ItemsSource="{Binding FilteredGames}" x:CompileBindings="False">
+                                <ItemsControl ItemsSource="{Binding FilteredGames}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <gamelibrarymanager:GameUserControl/>

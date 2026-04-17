@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:GameLibraryManager.ViewModel"
+             x:DataType="vm:MainViewModel"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.SettingsPage">
         <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
@@ -24,11 +26,11 @@
                         </Viewbox>
                     </Label>
                 </Grid>
-                <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Stretch" x:CompileBindings="False">
+                <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Stretch">
                     <Grid ColumnDefinitions="*, *">
                         <StackPanel Grid.Row="0">
                             <TextBlock Text="{DynamicResource InterfaceLanguage}" Width="150" Foreground="White"/>
-                            <ComboBox SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}" Width="150" Margin="20, 10, 20, 20"
+                            <ComboBox SelectedIndex="{Binding SelectedLanguage, Mode=TwoWay}" Width="150" Margin="20, 10, 20, 20"
                                       MaxDropDownHeight="100">
                                 <ComboBoxItem Tag="English">English</ComboBoxItem>
                                 <ComboBoxItem Tag="Ukrainian">Українська</ComboBoxItem>

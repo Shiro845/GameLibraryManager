@@ -4,12 +4,12 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using GameLibraryManager.Model;
 using GameLibraryManager.Pages;
+using GameLibraryManager.ViewModel;
 
 namespace GameLibraryManager;
 
 public partial class GameUserControl : UserControl
 {
-    private MainWindow mainWindow = MainWindow.Instance!;
     public GameUserControl()
     { 
         InitializeComponent();
@@ -21,12 +21,14 @@ public partial class GameUserControl : UserControl
         {
             if (!File.Exists(gameData.FilePath))
             {
-                mainWindow.ErrorMessage = App.GetText("GameFileNotFound");
-                mainWindow.IsErrorVisible = true;
+                if (MainWindow.Instance?.DataContext is MainViewModel vm)
+                {
+                    vm.ErrorMessage = App.GetText("GameFileNotFound");
+                    vm.IsErrorVisible = true;
+                }
                 return;
             }
             gameData.LaunchData = DateTime.Now.ToString("G");
-            HomePage.Instance?.UpdateLaunchSortedGames();
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
                 FileName = gameData.FilePath,
@@ -37,20 +39,23 @@ public partial class GameUserControl : UserControl
 
     private void EditButton_Click(object sender, RoutedEventArgs e)
     {
-         mainWindow.ShowOverlay();
-         if (DataContext is Game gameData)
-         {
-            mainWindow.GameToEdit = gameData;
-            mainWindow.IsOverlayVisible = true;
-         }
-            LibraryPage.Instance?.UpdateGamesList();
+        if (DataContext is Game gameData)
+        {
+            if (MainWindow.Instance?.DataContext is MainViewModel vm)
+            {
+                vm.GameToEdit = gameData;
+                vm.IsOverlayVisible = true;
+            }
+        }
     }
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        if (mainWindow != null && DataContext is Game gameToDelete)
+        if (DataContext is Game gameToDelete)
         {
-            mainWindow.Games.Remove(gameToDelete);
-            LibraryPage.Instance?.UpdateGamesList();
+            if (MainWindow.Instance?.DataContext is MainViewModel vm)
+            {
+                vm.Games.Remove(gameToDelete);
+            }
         }
     }
 }
