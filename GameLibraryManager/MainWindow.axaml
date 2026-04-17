@@ -129,20 +129,12 @@
                         <Label VerticalContentAlignment="Center" Content="{DynamicResource GameName}"/>
                         <TextBox Grid.Column="1" Text="{Binding GameToEdit.Name, Mode=TwoWay}" Margin="5"/>
                         <Label VerticalContentAlignment="Center" Grid.Row="1" Content="{DynamicResource GameGenre}"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedValue="{Binding GameToEdit.Genre, Mode=TwoWay}" 
-                            SelectedValueBinding="{Binding Content}" x:CompileBindings="False" Margin="5" HorizontalAlignment="Stretch">
-                            <ComboBoxItem Content="Action"/>
-                            <ComboBoxItem Content="Strategy"/>
-                            <ComboBoxItem Content="RPG"/>
+                        <ComboBox MaxDropDownHeight="100" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding GameToEdit.Genre, Mode=TwoWay}" 
+                            ItemsSource="{Binding GenreList}" x:CompileBindings="False" Margin="5" HorizontalAlignment="Stretch">
                         </ComboBox>
                         <Label VerticalContentAlignment="Center" Grid.Row="2" Content="{DynamicResource GameRate}"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" SelectedValue="{Binding GameToEdit.Rate, Mode=TwoWay}"
-                             SelectedValueBinding="{Binding Content}" x:CompileBindings="False" Margin="5" HorizontalAlignment="Stretch">
-                            <ComboBoxItem Content="1/5"/>
-                            <ComboBoxItem Content="2/5"/>
-                            <ComboBoxItem Content="3/5"/>
-                            <ComboBoxItem Content="4/5"/>
-                            <ComboBoxItem Content="5/5"/>
+                        <ComboBox MaxDropDownHeight="100" Grid.Row="2" Grid.Column="1" SelectedItem="{Binding GameToEdit.Rate, Mode=TwoWay}"
+                             ItemsSource="{Binding RateList}" x:CompileBindings="False" Margin="5" HorizontalAlignment="Stretch">
                         </ComboBox>
                     </Grid>
                 </Viewbox>

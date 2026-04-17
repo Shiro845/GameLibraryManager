@@ -1,19 +1,21 @@
+using System;
+using System.IO;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using System.IO;
+using GameLibraryManager.Model;
 using GameLibraryManager.Pages;
 
 namespace GameLibraryManager;
 
 public partial class GameUserControl : UserControl
 {
-    public MainWindow mainWindow = MainWindow.Instance!;
+    private MainWindow mainWindow = MainWindow.Instance!;
     public GameUserControl()
     { 
         InitializeComponent();
     }
 
-    public void LaunchButton_Click(object sender, RoutedEventArgs e)
+    private void LaunchButton_Click(object sender, RoutedEventArgs e)
     {
         if (DataContext is Game gameData)
         {
@@ -23,6 +25,8 @@ public partial class GameUserControl : UserControl
                 mainWindow.IsErrorVisible = true;
                 return;
             }
+            gameData.LaunchData = DateTime.Now.ToString("G");
+            HomePage.Instance?.UpdateLaunchSortedGames();
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
                 FileName = gameData.FilePath,
@@ -31,16 +35,17 @@ public partial class GameUserControl : UserControl
         }
     }
 
-    public void EditButton_Click(object sender, RoutedEventArgs e)
+    private void EditButton_Click(object sender, RoutedEventArgs e)
     {
          mainWindow.ShowOverlay();
          if (DataContext is Game gameData)
          {
             mainWindow.GameToEdit = gameData;
             mainWindow.IsOverlayVisible = true;
-        }
+         }
+            LibraryPage.Instance?.UpdateGamesList();
     }
-    public void DeleteButton_Click(object sender, RoutedEventArgs e)
+    private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         if (mainWindow != null && DataContext is Game gameToDelete)
         {

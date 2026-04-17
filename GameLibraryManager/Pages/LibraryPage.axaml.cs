@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using GameLibraryManager.Model;
 
 namespace GameLibraryManager.Pages
 {

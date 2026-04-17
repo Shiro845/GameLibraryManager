@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace GameLibraryManager
+namespace GameLibraryManager.Model
 {
     public class Game : INotifyPropertyChanged
     {
@@ -12,6 +12,7 @@ namespace GameLibraryManager
         private string? _genre;
         private string? _rate;
         private string? _filePath;
+        private string? _launchData;
         public string Name
         {
             get => _name!;
@@ -31,6 +32,11 @@ namespace GameLibraryManager
             {
             get => _filePath!;
             set { _filePath = value; OnPropertyChanged(); }
+        }
+        public string LaunchData
+            {
+            get => _launchData!;
+            set { _launchData = value; OnPropertyChanged(); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

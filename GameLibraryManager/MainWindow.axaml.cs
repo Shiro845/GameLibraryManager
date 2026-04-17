@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;    
+using Avalonia.Platform.Storage;
+using GameLibraryManager.Model;
 using GameLibraryManager.Pages;
 
 namespace GameLibraryManager
@@ -40,6 +42,9 @@ namespace GameLibraryManager
             get => _gameToEdit;
             set { _gameToEdit = value; OnPropertyChanged(); }
         }
+
+        public List<string> GenreList { get; } = new() { "Action", "Adventure", "RPG", "Strategy", "Simulator", "Sports", "Racing", "Puzzle", "Another" };
+        public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
 #pragma warning disable CS0108
         public event PropertyChangedEventHandler? PropertyChanged;
 #pragma warning restore CS0108
@@ -51,9 +56,9 @@ namespace GameLibraryManager
 
         public ObservableCollection<Game> Games { get; set; } = new ObservableCollection<Game>();
 
-        public GameLibraryManager.Pages.HomePage HomePage;
-        public GameLibraryManager.Pages.LibraryPage LibraryPage;
-        public GameLibraryManager.Pages.SettingsPage SettingsPage;
+        public HomePage HomePage;
+        public LibraryPage LibraryPage;
+        public SettingsPage SettingsPage;
 
         public MainWindow()
         {
@@ -64,6 +69,7 @@ namespace GameLibraryManager
             IsErrorVisible = false;
 
             HomePage = new HomePage();
+            HomePage.UpdateLaunchSortedGames();
             LibraryPage = new LibraryPage();
             LibraryPage.UpdateGamesList();
             SettingsPage = new SettingsPage();
@@ -122,6 +128,7 @@ namespace GameLibraryManager
             {
                 Games.Add(GameToEdit!);
             }
+            HomePage.Instance?.UpdateAll();
             IsOverlayVisible = false;
             GameToEdit = null;
         }
