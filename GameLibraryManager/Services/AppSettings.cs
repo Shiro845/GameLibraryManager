@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace GameLibraryManager.Services;
 
-namespace GameLibraryManager.Services;
+/// <summary>
+/// Модель налаштувань програми, включаючи мову, роздільну здатність, прозорість вікна та режим повноекранного відображення.
+/// </summary>
 public class AppSettings
 {
     public string Language { get; set; } = "en";

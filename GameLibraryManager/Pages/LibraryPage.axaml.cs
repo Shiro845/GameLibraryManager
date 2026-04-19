@@ -1,24 +1,20 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
-using GameLibraryManager.Model;
-using GameLibraryManager.ViewModel;
 
-namespace GameLibraryManager.Pages
+namespace GameLibraryManager.Pages;
+
+/// <summary>
+/// Сторінка бібліотеки ігор.
+/// </summary>
+public partial class LibraryPage : UserControl
 {
-    public partial class LibraryPage : UserControl
+    public LibraryPage()
     {
-        public LibraryPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void AddGameButton(object sender, RoutedEventArgs e)
-        {
-            MainWindow.Instance?.ShowOverlay();
-        }
+    private void AddGameButton(object sender, RoutedEventArgs e)
+    {
+        MainWindow.Instance?.ShowOverlay();
     }
 }

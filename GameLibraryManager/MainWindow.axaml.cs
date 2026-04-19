@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -13,13 +9,30 @@ using GameLibraryManager.ViewModel;
 
 namespace GameLibraryManager;
 
+/// <summary>
+/// Головне вікно програми, що відповідає за навігацію та керування основним інтерфейсом.
+/// </summary>
 public partial class MainWindow : Window
 {
+    /// <summary>
+    /// Отримує статичний екземпляр поточного вікна для доступу з інших частин програми.
+    /// </summary>
     public static MainWindow? Instance { get; private set; }
 
-    public HomePage HomePage;
-    public LibraryPage LibraryPage;
-    public SettingsPage SettingsPage;
+    /// <summary>
+    /// Сторінка домашнього екрана.
+    /// </summary>
+    private readonly HomePage homePage;
+
+    /// <summary>
+    /// Сторінка бібліотеки ігор.
+    /// </summary>
+    private readonly LibraryPage libraryPage;
+
+    /// <summary>
+    /// Сторінка налаштувань.
+    /// </summary>
+    private readonly SettingsPage settingsPage;
 
     public MainWindow()
     {
@@ -27,34 +40,53 @@ public partial class MainWindow : Window
         Instance = this;
         this.DataContext = new MainViewModel();
 
-        HomePage = new HomePage();
-        LibraryPage = new LibraryPage();
-        SettingsPage = new SettingsPage();
-        
+        homePage = new HomePage();
+        libraryPage = new LibraryPage();
+        settingsPage = new SettingsPage();
+
         if (this.DataContext is MainViewModel vm)
         {
             vm.ApplyAllSettings();
         }
 
-        MainContentArea.Content = LibraryPage;
+        MainContentArea.Content = libraryPage;
     }
 
+    /// <summary>
+    /// Показує домашню сторінку.
+    /// </summary>
     public void ShowHome(object sender, RoutedEventArgs e)
     {
-        MainContentArea.Content = HomePage;
+        MainContentArea.Content = homePage;
     }
+
+    /// <summary>
+    /// Показує сторінку бібліотеки ігор.
+    /// </summary>
     public void ShowLibrary(object sender, RoutedEventArgs e)
     {
-        MainContentArea.Content = LibraryPage;
+        MainContentArea.Content = libraryPage;
     }
+
+    /// <summary>
+    /// Показує сторінку налаштувань.
+    /// </summary>
     public void ShowSettings(object sender, RoutedEventArgs e)
     {
-        MainContentArea.Content = SettingsPage;
+        MainContentArea.Content = settingsPage;
     }
+
+    /// <summary>
+    /// Виходить з програми.
+    /// </summary>
     public void ExitButton(object sender, RoutedEventArgs e)
     {
         Environment.Exit(0);
     }
+
+    /// <summary>
+    /// Показує накладку для додавання нової гри.
+    /// </summary>
     public void ShowOverlay()
     {
         if (this.DataContext is MainViewModel vm)
@@ -63,6 +95,10 @@ public partial class MainWindow : Window
             vm.IsOverlayVisible = true;
         }
     }
+
+    /// <summary>
+    /// Підтвердження додавання/редагування гри.
+    /// </summary>
     public async void ConfirmAddGame(object sender, RoutedEventArgs e)
     {
         if (this.DataContext is MainViewModel vm)
@@ -83,8 +119,13 @@ public partial class MainWindow : Window
                 return;
             }
         }
+
         AddGameToList();
     }
+
+    /// <summary>
+    /// Скасовує додавання/редагування гри.
+    /// </summary>
     public void CancelAddGame(object sender, RoutedEventArgs e)
     {
         if (this.DataContext is MainViewModel vm)
@@ -93,6 +134,10 @@ public partial class MainWindow : Window
             vm.GameToEdit = null;
         }
     }
+
+    /// <summary>
+    /// Додавання нової гри до списку або оновлення існуючої після редагування.
+    /// </summary>
     public void AddGameToList()
     {
         if (this.DataContext is MainViewModel vm)
@@ -101,10 +146,15 @@ public partial class MainWindow : Window
             {
                 vm.Games.Add(vm.GameToEdit!);
             }
+
             vm.IsOverlayVisible = false;
             vm.GameToEdit = null;
         }
     }
+
+    /// <summary>
+    /// Видаляє гру зі списку.
+    /// </summary>
     public void DeleteGame(Game game)
     {
         if (this.DataContext is ViewModel.MainViewModel vm)
@@ -112,6 +162,10 @@ public partial class MainWindow : Window
             vm.Games.Remove(game);
         }
     }
+
+    /// <summary>
+    /// Закриває повідомлення про помилку.
+    /// </summary>
     public void CloseError(object sender, RoutedEventArgs e)
     {
         if (this.DataContext is ViewModel.MainViewModel vm)
@@ -120,7 +174,10 @@ public partial class MainWindow : Window
         }
     }
 
-    public async void BrowseGameDirectory(object sender, RoutedEventArgs e) 
+    /// <summary>
+    /// Відкриває діалог вибору файлу для вибору виконуваного файлу гри та встановлює його шлях у відповідне поле.
+    /// </summary>
+    public async void BrowseGameDirectory(object sender, RoutedEventArgs e)
     {
         var storage = TopLevel.GetTopLevel(this)?.StorageProvider;
 

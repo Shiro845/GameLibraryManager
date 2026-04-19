@@ -1,14 +1,17 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Avalonia.Controls;
 using GameLibraryManager.ViewModel;
 
 namespace GameLibraryManager.Pages;
 
+/// <summary>
+/// Домашня сторінка.
+/// </summary>
 public partial class HomePage : UserControl
 {
     private MainViewModel? ViewModel => DataContext as MainViewModel;
+
     public HomePage()
     {
         InitializeComponent();
@@ -28,6 +31,7 @@ public partial class HomePage : UserControl
             ViewModel!.IsErrorVisible = true;
             return;
         }
+
         randomGame.LaunchData = DateTime.Now.ToString("G");
         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
         {

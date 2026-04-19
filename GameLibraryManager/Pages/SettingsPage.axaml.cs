@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml.Styling;
+﻿using Avalonia.Controls;
 
-namespace GameLibraryManager.Pages
+namespace GameLibraryManager.Pages;
+
+/// <summary>
+/// Сторінка налаштувань.
+/// </summary>
+public partial class SettingsPage : UserControl
 {
-    public partial class SettingsPage : UserControl
+    public SettingsPage()
     {
-        public SettingsPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

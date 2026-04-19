@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml.Styling;
 using GameLibraryManager.Model;
@@ -10,14 +9,39 @@ using GameLibraryManager.Services;
 
 namespace GameLibraryManager.ViewModel;
 
+/// <summary>
+/// Основний ViewModel для керування даними та логікою програми, включаючи список ігор, налаштування та фільтрацію.
+/// </summary>
 public class MainViewModel : ViewModelBase
 {
+    /// <summary>
+    /// Динамічна колекція ігор, яка відображається в інтерфейсі та зберігається у файлі. Зміни в цій колекції автоматично зберігаються.
+    /// </summary>
     public ObservableCollection<Game> Games { get; set; }
 
+    /// <summary>
+    /// Показує, чи відображається накладка для додавання/редагування гри.
+    /// </summary>
     private bool _isOverlayVisible;
+
+    /// <summary>
+    /// Повідомлення про помилку, яке відображається у накладці.
+    /// </summary>
     private string _errorMessage = "";
+
+    /// <summary>
+    /// Показує, чи відображається повідомлення про помилку.
+    /// </summary>
     private bool _isErrorVisible;
+
+    /// <summary>
+    /// Гра, яка редагується у накладці.
+    /// </summary>
     private Game? _gameToEdit;
+
+    /// <summary>
+    /// Текст для фільтрації ігор у бібліотеці. Коли цей текст змінюється, колекція відфільтрованих ігор оновлюється автоматично.
+    /// </summary>
     private string? _searchText;
 
     public bool IsOverlayVisible
@@ -43,6 +67,7 @@ public class MainViewModel : ViewModelBase
         get => _gameToEdit;
         set { _gameToEdit = value; OnPropertyChanged(); }
     }
+
     public string SearchText
     {
         get => _searchText!;
@@ -123,12 +148,21 @@ public class MainViewModel : ViewModelBase
             ApplyResolution(value);
         }
     }
+
+    /// <summary>
+    /// Налаштування додатка.
+    /// </summary>
     private AppSettings _settings = new();
+
     public AppSettings Settings
     {
         get => _settings;
         set { _settings = value; OnPropertyChanged(); }
     }
+
+    /// <summary>
+    /// Колекція ігор, відфільтрована за текстом у SearchText. Якщо SearchText порожній, повертає всі ігри.
+    /// </summary>
     public ObservableCollection<Game> FilteredGames
     {
         get
@@ -144,11 +178,20 @@ public class MainViewModel : ViewModelBase
             return new ObservableCollection<Game>(filtered);
         }
     }
+
+    /// <summary>
+    /// Список жанрів для вибору при додаванні/редагуванні гри.
+    /// </summary>
     public List<string> GenreList { get; } = new() { "Action", "Adventure", "Battle Royale", "RPG",
                                                     "MOBA", "Strategy", "Simulator", "Survival",
                                                     "Sports", "Platformer", "Puzzle", "Racing",
                                                     "Roguelike", "Horror", "Another" };
+
+    /// <summary>
+    /// Список оцінок для вибору при додаванні/редагуванні гри.
+    /// </summary>
     public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
+
     public MainViewModel()
     {
         Settings = JsonStorage.LoadSettings();
@@ -186,12 +229,20 @@ public class MainViewModel : ViewModelBase
             return new ObservableCollection<Game>(sorted);
         }
     }
+
+    /// <summary>
+    /// Оновлює статистику ігор, викликаючи події зміни властивостей для TotalGamesCount, FavouriteGamesCount та LaunchSortedGames.
+    /// </summary>
     public void UpdateStats()
     {
         OnPropertyChanged(nameof(TotalGamesCount));
         OnPropertyChanged(nameof(FavouriteGamesCount));
         OnPropertyChanged(nameof(LaunchSortedGames));
     }
+
+    /// <summary>
+    /// Застосовує всі налаштування. Викликається при завантаженні програми для застосування збережених налаштувань.
+    /// </summary>
     public void ApplyAllSettings()
     {
         if (MainWindow.Instance == null) return;
@@ -200,6 +251,10 @@ public class MainViewModel : ViewModelBase
         MainWindow.Instance.WindowState = IsFullscreen ? WindowState.FullScreen : WindowState.Normal;
         ApplyResolution(SelectedResolutionIndex);
     }
+
+    /// <summary>
+    /// >Застосовує вибрану роздільну здатність до вікна.
+    /// </summary>
     public void ApplyResolution(int index)
     {
         if (MainWindow.Instance == null) return;
@@ -218,6 +273,10 @@ public class MainViewModel : ViewModelBase
         MainWindow.Instance.Height = height;
         MainWindow.Instance.WindowStartupLocation = WindowStartupLocation.CenterScreen;
     }
+
+    /// <summary>
+    /// Змінює мову інтерфейсу програми.
+    /// </summary>
     public void ChangeLanguage(string langCode)
     {
         var currentDict = App.Current!.Resources.MergedDictionaries;
