@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Threading;
 using GameLibraryManager.Model;
 using GameLibraryManager.Services;
 
@@ -192,8 +193,24 @@ public class MainViewModel : ViewModelBase
     /// </summary>
     public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
 
+
+    private DateTime _startTime;
+    private string? _sessionTime;
+    private DispatcherTimer _timer;
+    public string SessionTime
+    {
+        get => _sessionTime!;
+        set { _sessionTime = value; OnPropertyChanged(nameof(SessionTime)); }
+    }
     public MainViewModel()
     {
+        _startTime = DateTime.Now;
+        _timer = new DispatcherTimer();
+        _timer.Interval = TimeSpan.FromSeconds(1);
+        _timer.Tick += Timer_Tick!;
+        _timer.Start();
+        SessionTime = "00:00:00";
+
         Settings = JsonStorage.LoadSettings();
 
         Games = new ObservableCollection<Game>(JsonStorage.Load());
@@ -215,6 +232,12 @@ public class MainViewModel : ViewModelBase
                     item.PropertyChanged += (s, e) => { JsonStorage.Save(Games); UpdateStats(); };
             }
         };
+    }
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        TimeSpan elapsed = DateTime.Now - _startTime;
+        SessionTime = elapsed.ToString(@"hh\:mm\:ss");
     }
     public ushort TotalGamesCount => (ushort)Games.Count;
     public ushort FavouriteGamesCount => (ushort)Games.Count(g => g.Rate == "5/5");

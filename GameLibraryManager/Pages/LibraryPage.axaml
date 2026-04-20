@@ -25,7 +25,7 @@
                 <Grid Grid.Row="0">
                     <Label HorizontalAlignment="Left">
                         <Viewbox Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                 <material:MaterialIcon Kind="Book" Foreground="White"/>
                                 <TextBlock Text="{DynamicResource Library}" Margin="5" Foreground="White"/>
                             </StackPanel>

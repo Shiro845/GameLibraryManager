@@ -35,4 +35,5 @@
     <sys:String x:Key="TotalGamesCount">Total Games Count:</sys:String>
     <sys:String x:Key="FavouriteGamesCount">Favourite Games Count:</sys:String>
     <sys:String x:Key="RandomGame">Random Game</sys:String>
+    <sys:String x:Key="SessionTime">Session Time:</sys:String>
 </ResourceDictionary>

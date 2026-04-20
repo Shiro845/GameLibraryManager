@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:gamelibrarymanager="using:GameLibraryManager"
+             xmlns:livechartscore="using:LiveChartsCore"
              xmlns:vm="using:GameLibraryManager.ViewModel"
              xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:DataType="vm:MainViewModel"
@@ -9,71 +10,95 @@
              mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.HomePage">
-        <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-                    <GradientStop Color="#203A43" Offset="0.0"/>
-                    <GradientStop Color="#2C5364" Offset="1.0"/>
-                </LinearGradientBrush>
-            </Border.Background>
+
+        <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5" Background="#202020">
             <Grid>
                 <Grid.RowDefinitions>
                    <RowDefinition Height="*"/>
-                   <RowDefinition Height="5*"/>
+                   <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Label HorizontalAlignment="Left">
                         <Viewbox Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                 <material:MaterialIcon Kind="Home" Foreground="White"/>
                                 <TextBlock Text="{DynamicResource Home}" Margin="5" Foreground="White"/>
                             </StackPanel>
                         </Viewbox>
                     </Label>
                 </Grid>
-                <Grid Grid.Row="1" RowDefinitions=" *, *, 3*, 2*">
-                    <Viewbox Grid.Row="0" Stretch="Uniform">
-                        <Grid ColumnDefinitions="Auto, 2*, Auto" Width="450">
-                            <StackPanel Grid.Column="0">
-                                <TextBlock Text="{DynamicResource TotalGamesCount}" Foreground="White" HorizontalAlignment="Center"/>
-                                <TextBlock Text="{Binding TotalGamesCount}" Foreground="Pink" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1"/>
-                            <StackPanel Grid.Column="2">
-                                <TextBlock Text="{DynamicResource FavouriteGamesCount}" Foreground="White" HorizontalAlignment="Center"/>
-                                <TextBlock Text="{Binding FavouriteGamesCount}" Foreground="Pink" HorizontalAlignment="Center"/>
-                            </StackPanel>
+                <Grid Grid.Row="1" RowDefinitions="4*, 3*">
+                    <Grid ColumnDefinitions="*, *, *">
+                        <Grid RowDefinitions="*, *" Grid.Column="0">
+                            <Border Margin="10" Grid.Row="0" Background="#303030" CornerRadius="20">
+                                <Grid RowDefinitions="*, 2*">
+                                    <Viewbox Grid.Row="0">
+                                    <TextBlock Text="{DynamicResource TotalGamesCount}" Margin="30,10,30,0" FontSize="25" HorizontalAlignment="Center" Foreground="White"/>
+                                    </Viewbox>
+                                    <Viewbox Grid.Row="1">
+                                    <TextBlock Text="{Binding TotalGamesCount}" Margin="5" HorizontalAlignment="Center" Foreground="White"/>
+                                    </Viewbox>
+                                </Grid>
+                            </Border>
+                            <Border Margin="10" Grid.Row="1" Background="#303030" CornerRadius="20">
+                                <Grid RowDefinitions="*, 2*">
+                                    <Viewbox Grid.Row="0">
+                                    <TextBlock Text="{DynamicResource FavouriteGamesCount}" Margin="30,10,30,0" FontSize="25" HorizontalAlignment="Center" Foreground="White"/>
+                                    </Viewbox>
+                                    <Viewbox Grid.Row="1">
+                                    <TextBlock Text="{Binding FavouriteGamesCount}" Margin="5" HorizontalAlignment="Center" Foreground="White"/>
+                                    </Viewbox>
+                                </Grid>
+                            </Border>
                         </Grid>
-                    </Viewbox>
-                    <Viewbox Grid.Row="1" Stretch="Uniform">
-                        <Label FontSize="15" Foreground="Pink" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="{DynamicResource LaunchSortList}"/>
-                    </Viewbox>
-                    <Border Grid.Row="2" Margin="5" Background="#253545"
-                    BorderThickness="2" BorderBrush="#50ffffff" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Border Grid.Column="1" Margin="10" Background="#303030" CornerRadius="20">
+                            <Viewbox>
+                                <TextBlock Margin="20" Text="у розробці" Foreground="#40ffffff"/>
+                            </Viewbox>
+                        </Border>
+                        <Grid RowDefinitions="*, *" Grid.Column="2">
+                            <Border Margin="10" Grid.Row="0" Background="#303030" CornerRadius="20">
+                                <Grid RowDefinitions="*, 2*">
+                                    <Viewbox Grid.Row="0">
+                                        <TextBlock Text="{DynamicResource SessionTime}" Margin="0,5,0,0" Foreground="White"/>
+                                    </Viewbox>
+                                    <Viewbox Grid.Row="1">
+                                        <TextBlock FontFamily="Consolas" Text="{Binding SessionTime}" Margin="5" Foreground="White"/>
+                                    </Viewbox>
+                                </Grid>
+                            </Border>
+                            <Border Margin="10" Grid.Row="1" Background="#303030" CornerRadius="20">
+                                <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="20">
+                                    <Button Background="#202020" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="20"
+                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10" Click="RandomGame_Click">
+                                        <Viewbox Stretch="Uniform" Margin="15">
+                                            <StackPanel Orientation="Horizontal">
+                                                <material:MaterialIcon Kind="Dice5" Foreground="White" VerticalAlignment="Center" Width="15" Height="15"/>
+                                                <TextBlock Text="{DynamicResource RandomGame}" FontSize="10" Margin="0,2,0,0" Foreground="White"/>
+                                            </StackPanel>
+                                        </Viewbox>
+                                    </Button>
+                                </Border>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <Border Grid.Row="1" Margin="10" CornerRadius="15" Background="#303030"
+                    BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid RowDefinitions="*, 4*">
+                            <Viewbox Grid.Row="0">
+                                <TextBlock Text="{DynamicResource LaunchSortList}" Foreground="White"/>
+                            </Viewbox>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                             <ItemsControl ItemsSource="{Binding LaunchSortedGames}" x:CompileBindings="False">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <gamelibrarymanager:GameUserControl/>
+                                        <gamelibrarymanager:GameUserControl Background="#404040" Margin="3" CornerRadius="5"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
+                        </Grid>
                     </Border>
-                    <Grid Grid.Row="3" Margin="3, 0, 3, 3">
-                        <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                BorderBrush="OrangeRed" BorderThickness="1" CornerRadius="5">
-                            <Button Background="#dd00ffff" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="5" Click="RandomGame_Click">
-                                <Viewbox Stretch="Uniform" Margin="15">
-                                    <StackPanel Orientation="Horizontal">
-                                        <material:MaterialIcon Kind="Dice5" Foreground="Black" VerticalAlignment="Center" Width="15" Height="15"/>
-                                        <TextBlock Text="{DynamicResource RandomGame}" FontSize="10" Margin="0,2,0,0" Foreground="Black"/>
-                                    </StackPanel>
-                                </Viewbox>
-                            </Button>
-                        </Border>
-                    </Grid>
                 </Grid>
             </Grid>        
         </Border>

@@ -37,7 +37,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        CanResize = false;
+        //CanResize = false;
         Instance = this;
         this.DataContext = new MainViewModel();
 

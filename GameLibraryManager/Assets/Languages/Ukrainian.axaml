@@ -35,4 +35,5 @@
     <sys:String x:Key="TotalGamesCount">Загальна кількість ігор:</sys:String>
     <sys:String x:Key="FavouriteGamesCount">Кількість улюблених ігор:</sys:String>
     <sys:String x:Key="RandomGame">Випадкова гра</sys:String>
+    <sys:String x:Key="SessionTime">Час сесії:</sys:String>
 </ResourceDictionary>

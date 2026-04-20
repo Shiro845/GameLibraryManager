@@ -12,7 +12,7 @@
                      <TextBlock Grid.Column="1" Text="{Binding Genre}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
                      <TextBlock Grid.Column="2" Text="{Binding Rate}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
                      <Grid Grid.Column="3" ColumnDefinitions="*, *, *" Margin="20, 5, 5, 5">
-                         <Button Grid.Column="0" Click="LaunchButton_Click" 
+                         <Button Grid.Column="0" Click="LaunchButton_Click"
                                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                                  Margin="2">
                              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
