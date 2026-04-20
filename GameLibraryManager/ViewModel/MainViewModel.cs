@@ -216,8 +216,8 @@ public class MainViewModel : ViewModelBase
             }
         };
     }
-    public int TotalGamesCount => Games.Count;
-    public int FavouriteGamesCount => Games.Count(g => g.Rate == "5/5");
+    public ushort TotalGamesCount => (ushort)Games.Count;
+    public ushort FavouriteGamesCount => (ushort)Games.Count(g => g.Rate == "5/5");
     public ObservableCollection<Game> LaunchSortedGames
     {
         get

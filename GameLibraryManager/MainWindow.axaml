@@ -8,7 +8,7 @@
         x:DataType="vm:MainViewModel"
         x:Class="GameLibraryManager.MainWindow"
         Title="GameLibraryManager" 
-        MinWidth="600" MinHeight="400"
+        MinWidth="800" MinHeight="450"
         WindowStartupLocation="CenterScreen"
         Background="Aquamarine">
     <Window.Styles>
@@ -113,7 +113,11 @@
                 </Border>
             </Border>
             <Border Grid.Column="1" Background="#052535">
-                <ContentControl x:Name="MainContentArea"/>
+                <TransitioningContentControl x:Name="MainContentArea">
+                    <TransitioningContentControl.PageTransition>
+                        <CrossFade Duration="00:00:00.300"/>
+                    </TransitioningContentControl.PageTransition>
+                </TransitioningContentControl>
             </Border>
         </Grid>
         <Grid ZIndex="50" IsVisible="{Binding IsOverlayVisible}" Background="#80101010"
