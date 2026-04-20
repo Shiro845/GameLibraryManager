@@ -1,19 +1,19 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="Home">🏠 Головна</sys:String>
-    <sys:String x:Key="MyLibrary">📖 Моя Бібліотека</sys:String>
-    <sys:String x:Key="Settings">⚙️ Налаштування</sys:String>
-    <sys:String x:Key="Exit">❌ Вихід</sys:String>
+    <sys:String x:Key="Home">Головна</sys:String>
+    <sys:String x:Key="Library">Бібліотека</sys:String>
+    <sys:String x:Key="Settings">Налаштування</sys:String>
+    <sys:String x:Key="Exit">Вихід</sys:String>
     <sys:String x:Key="AddGame">+ Додати гру</sys:String>
-    <sys:String x:Key="Search">🔍 Пошук ігор...</sys:String>
+    <sys:String x:Key="Search">Пошук ігор...</sys:String>
     <sys:String x:Key="Name">Назва</sys:String>
     <sys:String x:Key="Genre">Жанр</sys:String>
     <sys:String x:Key="YourRate">Ваша оцінка</sys:String>
     <sys:String x:Key="Actions">Дії</sys:String>
-    <sys:String x:Key="Launch">🚀 Запустити</sys:String>
-    <sys:String x:Key="Edit">✏️ Редагувати</sys:String>
-    <sys:String x:Key="Delete">🗑️ Видалити</sys:String>
+    <sys:String x:Key="Launch">Запустити</sys:String>
+    <sys:String x:Key="Edit">Редагувати</sys:String>
+    <sys:String x:Key="Delete">Видалити</sys:String>
     <sys:String x:Key="NameExists">Гра з такою назвою вже існує!</sys:String>
     <sys:String x:Key="FillAllFields">Будь ласка, заповніть всі поля!</sys:String>
     <sys:String x:Key="SelectGameFile">Виберіть файл гри</sys:String>
@@ -34,5 +34,5 @@
     <sys:String x:Key="LaunchSortList">Останні запущені ігри</sys:String>
     <sys:String x:Key="TotalGamesCount">Загальна кількість ігор:</sys:String>
     <sys:String x:Key="FavouriteGamesCount">Кількість улюблених ігор:</sys:String>
-    <sys:String x:Key="RandomGame">🎲 Випадкова гра</sys:String>
+    <sys:String x:Key="RandomGame">Випадкова гра</sys:String>
 </ResourceDictionary>

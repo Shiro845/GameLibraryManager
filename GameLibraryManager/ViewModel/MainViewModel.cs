@@ -152,9 +152,9 @@ public class MainViewModel : ViewModelBase
     /// <summary>
     /// Налаштування додатка.
     /// </summary>
-    private AppSettings _settings = new();
+    private Settings _settings = new();
 
-    public AppSettings Settings
+    public Settings Settings
     {
         get => _settings;
         set { _settings = value; OnPropertyChanged(); }

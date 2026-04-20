@@ -42,7 +42,7 @@ public static class JsonStorage
     /// <summary>
     /// Зберігає налаштування програми у файл JSON. Якщо папка не існує, вона буде створена.
     /// </summary>
-    public static void SaveSettings(AppSettings settings)
+    public static void SaveSettings(Settings settings)
     {
         if (!Directory.Exists(FolderPath)) Directory.CreateDirectory(FolderPath);
         var options = new JsonSerializerOptions { WriteIndented = true };
@@ -54,10 +54,10 @@ public static class JsonStorage
     /// >Завантажує налаштування програми з файлу JSON. Якщо файл не існує, повертається новий екземпляр AppSettings з дефолтними значеннями.
     /// </summary>
     /// <returns>Налаштування програми.</returns>
-    public static AppSettings LoadSettings()
+    public static Settings LoadSettings()
     {
-        if (!File.Exists(SettingsPath)) return new AppSettings();
+        if (!File.Exists(SettingsPath)) return new Settings();
         string json = File.ReadAllText(SettingsPath);
-        return JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+        return JsonSerializer.Deserialize<Settings>(json) ?? new Settings();
     }
 }

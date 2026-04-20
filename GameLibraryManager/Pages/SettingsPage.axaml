@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:vm="using:GameLibraryManager.ViewModel"
              x:DataType="vm:MainViewModel"
              Background="#052535"
@@ -22,7 +23,10 @@
                 <Grid Grid.Row="0">
                     <Label HorizontalAlignment="Left">
                         <Viewbox Stretch="Uniform">
-                            <TextBlock Text="{DynamicResource Settings}" Margin="5" Foreground="White"/>
+                            <StackPanel Orientation="Horizontal">
+                                <material:MaterialIcon Kind="Settings" Foreground="White"/>
+                                <TextBlock Text="{DynamicResource Settings}" Margin="5" Foreground="White"/>
+                            </StackPanel>
                         </Viewbox>
                     </Label>
                 </Grid>
