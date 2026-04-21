@@ -187,13 +187,12 @@ public class MainViewModel : ViewModelBase
                                                     "MOBA", "Strategy", "Simulator", "Survival",
                                                     "Sports", "Platformer", "Puzzle", "Racing",
                                                     "Roguelike", "Horror", "Another" };
-
     public ObservableCollection<GenreStat> GenreStats { get; set; } = new();
 
     /// <summary>
     /// Список оцінок для вибору при додаванні/редагуванні гри.
     /// </summary>
-    //public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
+    public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
 
 
     private DateTime _startTime;
