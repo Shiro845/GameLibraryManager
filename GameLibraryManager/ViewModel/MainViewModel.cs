@@ -45,6 +45,17 @@ public class MainViewModel : ViewModelBase
     /// </summary>
     private string? _searchText;
 
+    private object _currentPage;
+    public object CurrentPage
+    {
+        get => _currentPage;
+        set
+        {
+            _currentPage = value;
+            this.OnPropertyChanged(nameof(CurrentPage));
+        }
+    }
+
     public bool IsOverlayVisible
     {
         get => _isOverlayVisible;
@@ -188,6 +199,8 @@ public class MainViewModel : ViewModelBase
                                                     "Sports", "Platformer", "Puzzle", "Racing",
                                                     "Roguelike", "Horror", "Another" };
 
+    public ObservableCollection<GenreStat> GenreStats { get; set; } = new();
+
     /// <summary>
     /// Список оцінок для вибору при додаванні/редагуванні гри.
     /// </summary>
@@ -219,19 +232,28 @@ public class MainViewModel : ViewModelBase
 
         foreach (var game in Games)
         {
-            game.PropertyChanged += (s, e) => { JsonStorage.Save(Games); UpdateStats(); };
+            game.PropertyChanged += (s, e) => OnGameDataChanged();
         }
 
         Games.CollectionChanged += (s, e) =>
         {
-            JsonStorage.Save(Games);
-            UpdateStats();
             if (e.NewItems != null)
             {
-                foreach (Game item in e.NewItems)
-                    item.PropertyChanged += (s, e) => { JsonStorage.Save(Games); UpdateStats(); };
+                foreach (Game newGame in e.NewItems)
+                {
+                    newGame.PropertyChanged += (s, e) => OnGameDataChanged();
+                }
             }
+            OnGameDataChanged();
         };
+        UpdateGenreStatistics();
+    }
+
+    private void OnGameDataChanged()
+    {
+        JsonStorage.Save(Games);
+        UpdateGenreStatistics();
+        OnPropertyChanged(nameof(FilteredGames));
     }
 
     private void Timer_Tick(object sender, EventArgs e)
@@ -252,6 +274,8 @@ public class MainViewModel : ViewModelBase
             return new ObservableCollection<Game>(sorted);
         }
     }
+
+
 
     /// <summary>
     /// Оновлює статистику ігор, викликаючи події зміни властивостей для TotalGamesCount, FavouriteGamesCount та LaunchSortedGames.
@@ -307,5 +331,29 @@ public class MainViewModel : ViewModelBase
         var uri = new Uri($"avares://GameLibraryManager/Assets/Languages/{langCode}.axaml");
         var resourceInclude = new ResourceInclude(uri) { Source = uri };
         currentDict.Add(resourceInclude);
+    }
+
+    public void UpdateGenreStatistics()
+    {
+        if (Games == null || !Games.Any()) return;
+
+        int totalGames = Games.Count;
+
+        var stats = Games
+            .GroupBy(g => g.Genre)
+            .Select(group => new GenreStat
+            {
+                Name = group.Key ?? "Unknown",
+                Count = group.Count(),
+                Percent = (double)group.Count() / totalGames * 100
+            })
+            .OrderByDescending(x => x.Count)
+            .ToList();
+
+        GenreStats.Clear();
+        foreach (var item in stats)
+        {
+            GenreStats.Add(item);
+        }
     }
 }

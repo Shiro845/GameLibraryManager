@@ -8,11 +8,31 @@
              x:DataType="vm:MainViewModel"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.SettingsPage">
+        <UserControl.Styles>
+            <Style Selector="ComboBox /template/ Popup > Border">
+                <Setter Property="Background" Value="#1D2A35"/>
+                <Setter Property="BorderBrush" Value="#1FFFFF"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="8"/>
+            </Style>            
+            <Style Selector="ComboBox /template/ Popup ScrollViewer">
+                <Setter Property="Background" Value="#1D2A35"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+            <Style Selector="ComboBoxItem">
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+
+            <Style Selector="Slider">
+                <Setter Property="Foreground" Value="Aqua"/>
+                <Setter Property="Background" Value="Pink"/>
+            </Style >
+        </UserControl.Styles>
         <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
             <Border.Background>
-                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-                    <GradientStop Color="#203A43" Offset="0.0"/>
-                    <GradientStop Color="#2C5364" Offset="1.0"/>
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                    <GradientStop Color="#2b2d31" Offset="0.0"/>
+                    <GradientStop Color="#1a1d21" Offset="1.0"/>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
@@ -23,7 +43,7 @@
                 <Grid Grid.Row="0">
                     <Label HorizontalAlignment="Left">
                         <Viewbox Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
                                 <material:MaterialIcon Kind="Settings" Foreground="White"/>
                                 <TextBlock Text="{DynamicResource Settings}" Margin="5" Foreground="White"/>
                             </StackPanel>
@@ -33,21 +53,32 @@
                 <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Stretch">
                     <Grid ColumnDefinitions="*, *">
                         <StackPanel Grid.Row="0">
-                            <TextBlock Text="{DynamicResource InterfaceLanguage}" Width="150" Foreground="White"/>
-                            <ComboBox SelectedIndex="{Binding SelectedLanguage, Mode=TwoWay}" Width="150" Margin="20, 10, 20, 20"
-                                      MaxDropDownHeight="100">
-                                <ComboBoxItem Tag="English">English</ComboBoxItem>
-                                <ComboBoxItem Tag="Ukrainian">Українська</ComboBoxItem>
-                            </ComboBox>
-                            <TextBlock Text="{DynamicResource WindowOpacity}" Width="150" Foreground="White"/>
+                            <TextBlock Text="{DynamicResource InterfaceLanguage}" Width="150" Foreground="#80ffffff"/>
+                                    <ComboBox Foreground="White" Background="#3b3d41" SelectedIndex="{Binding SelectedLanguage, Mode=TwoWay}" Width="150" Margin="20, 10, 20, 20" MaxDropDownHeight="100">
+                                        <ComboBox.BorderBrush>
+                                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                                <GradientStop Color="Aqua" Offset="0.0"/>
+                                                <GradientStop Color="Pink" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </ComboBox.BorderBrush>
+                                        <ComboBoxItem Tag="English">English</ComboBoxItem>
+                                        <ComboBoxItem Tag="Ukrainian">Українська</ComboBoxItem>
+                                    </ComboBox>
+                            <TextBlock Text="{DynamicResource WindowOpacity}" Width="150" Foreground="#80ffffff"/>
                             <Slider Minimum="0.2" Maximum="1.0"
                                     Value="{Binding WindowOpacity, Mode=TwoWay}" SmallChange="0.05" Margin="20, 0, 20, 0"
                                     Width="150" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
-                            <TextBlock Text="{DynamicResource Resolution}" Width="150" Foreground="White"/>
-                            <ComboBox SelectedIndex="{Binding SelectedResolutionIndex, Mode=TwoWay}" Width="150" Margin="20, 10, 20, 20"
+                            <TextBlock Text="{DynamicResource Resolution}" Width="150" Foreground="#80ffffff"/>
+                            <ComboBox Foreground="White" Background="#3b3d41" SelectedIndex="{Binding SelectedResolutionIndex, Mode=TwoWay}" Width="150" Margin="20, 10, 20, 20"
                                       MaxDropDownHeight="100">
+                                <ComboBox.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                        <GradientStop Color="Aqua" Offset="0.0"/>
+                                        <GradientStop Color="Pink" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.BorderBrush>
                                 <ComboBoxItem Tag="1280,720">1280 × 720 (HD)</ComboBoxItem>
                                 <ComboBoxItem Tag="1366,768">1366 × 768 (Laptop)</ComboBoxItem>
                                 <ComboBoxItem Tag="1600,900">1600 × 900 (HD+)</ComboBoxItem>
@@ -55,7 +86,7 @@
                                 <ComboBoxItem Tag="2560,1440">2560 × 1440 (QHD)</ComboBoxItem>
                                 <ComboBoxItem Tag="3840,2160">3840 × 2160 (4K)</ComboBoxItem>
                             </ComboBox>
-                            <CheckBox Margin="20" Foreground="White"
+                            <CheckBox Margin="20" Foreground="#80ffffff"
                                       Content="{DynamicResource Fullscreen}"
                                       IsChecked="{Binding IsFullscreen, Mode=TwoWay}"/>
                         </StackPanel>

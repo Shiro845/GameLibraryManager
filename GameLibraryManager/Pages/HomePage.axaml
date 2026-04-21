@@ -10,7 +10,6 @@
              mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.HomePage">
-
         <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5" Background="#202020">
             <Grid>
                 <Grid.RowDefinitions>
@@ -52,9 +51,29 @@
                             </Border>
                         </Grid>
                         <Border Grid.Column="1" Margin="10" Background="#303030" CornerRadius="20">
-                            <Viewbox>
-                                <TextBlock Margin="20" Text="у розробці" Foreground="#40ffffff"/>
-                            </Viewbox>
+                                    <Grid RowDefinitions="*, 5*">
+                                        <Viewbox Grid.Row="0">
+                                            <TextBlock Text="{DynamicResource GenreStats}" Foreground="White" Margin="10,5,10,0"/>
+                                        </Viewbox>
+                                        <Viewbox Grid.Row="1">
+                                        <ItemsControl ItemsSource="{Binding GenreStats}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid RowDefinitions="Auto, Auto" Margin="5">
+                                                        <Grid ColumnDefinitions="*, Auto">
+                                                            <TextBlock Text="{Binding Name}" Foreground="White" FontSize="14"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding Count}" Foreground="#1FFFFF"/>
+                                                        </Grid>
+                                                        <ProgressBar Grid.Row="1" 
+                                                        Value="{Binding Percent}" Height="6" 
+                                                        Margin="0,5,0,0" Foreground="#1FFFFF"
+                                                        Background="#2D3A45" CornerRadius="3"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        </Viewbox>
+                                    </Grid>
                         </Border>
                         <Grid RowDefinitions="*, *" Grid.Column="2">
                             <Border Margin="10" Grid.Row="0" Background="#303030" CornerRadius="20">

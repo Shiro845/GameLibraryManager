@@ -8,7 +8,7 @@ using GameLibraryManager.ViewModel;
 namespace GameLibraryManager;
 
 /// <summary>
-/// >Контрол гри для відображення інформації про неї та надання можливості запуску, редагування або видалення з бібліотеки.
+/// Контрол гри для відображення інформації про неї та надання можливості запуску, редагування або видалення з бібліотеки.
 /// </summary>
 public partial class GameUserControl : UserControl
 {

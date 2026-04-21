@@ -12,6 +12,9 @@
         MinWidth="800" MinHeight="450"
         WindowStartupLocation="CenterScreen"
         Background="Aquamarine">
+    <Window.Resources>
+        <Color x:Key="MainAccentColor">#1A242D</Color>
+    </Window.Resources>
     <Window.Styles>
     <Style Selector="RadioButton.MenuButton">
         <Setter Property="Template">
@@ -56,9 +59,8 @@
                 <Border BorderThickness="2" BorderBrush="OrangeRed" CornerRadius="5" Margin="5">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-                            <GradientStop Color="#0F2027" Offset="0.0"/>
-                            <GradientStop Color="#104055" Offset="0.5"/>
-                            <GradientStop Color="#203A43" Offset="1.0"/>
+                            <GradientStop Color="#153040" Offset="0.0"/>
+                            <GradientStop Color="{DynamicResource MainAccentColor}" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Border.Background>
                     <Grid>
@@ -126,7 +128,7 @@
                 </Border>
             </Border>
             <Border Grid.Column="1" Background="#052535">
-                <TransitioningContentControl x:Name="MainContentArea">
+                <TransitioningContentControl x:Name="MainContentArea" Content="{Binding CurrentPage}">
                     <TransitioningContentControl.PageTransition>
                         <CrossFade Duration="00:00:00.300"/>
                     </TransitioningContentControl.PageTransition>

@@ -9,13 +9,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Background="#052535"
              x:Class="GameLibraryManager.Pages.LibraryPage">
-        <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-                    <GradientStop Color="#203A43" Offset="0.0"/>
-                    <GradientStop Color="#2C5364" Offset="1.0"/>
-                </LinearGradientBrush>
-            </Border.Background>
+        <Border BorderThickness="2" BorderBrush="Aqua" CornerRadius="10" Margin="5" Background="#1A242D">
             <Grid>
                 <Grid.RowDefinitions>
                    <RowDefinition Height="*"/>
@@ -42,9 +36,9 @@
                     Padding="1">
                         <Viewbox Stretch="Uniform">
                             <TextBox Text="{Binding SearchText, Mode=TwoWay}"
-                            Background="#253545" MaxLength="60"
+                            Background="#1A242D" MaxLength="60"
                             Foreground="LightGray" Margin="3"
-                            PlaceholderText="{DynamicResource Search}"
+                            PlaceholderText="{DynamicResource Search}" PlaceholderForeground="White"
                             BorderBrush="#80ffffff"/>
                         </Viewbox>
                     </Border>
@@ -61,7 +55,7 @@
                         </Viewbox>
                     </Border>
                 </Grid>
-                <Border Grid.Row="2" Margin="5" Background="#253545"
+                <Border Grid.Row="2" Margin="5" Background="#1A242D"
                 CornerRadius="10" BorderThickness="1" BorderBrush="#50ffffff">
                     <Border Margin="5" CornerRadius="10" ClipToBounds="True">
                         <Grid>
@@ -69,9 +63,9 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="5*"/>
                             </Grid.RowDefinitions>
-                                <Border Grid.Row="0" Background="#455565" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Border Grid.Row="0" Background="#0a141d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                        <Grid Width="800" Height="50" Background="#455565" ColumnDefinitions="6*, 4*, 4*, 13*">
+                                        <Grid Width="800" Height="50" ColumnDefinitions="6*, 4*, 4*, 13*">
                                             <Border Grid.Column="0" BorderBrush="#50FFFFFF" BorderThickness="0,0,1,0"
                                                     VerticalAlignment="Center" Margin="10, 5, 0, 5">
                                                 <Viewbox Margin="8" HorizontalAlignment="Left">

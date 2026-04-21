@@ -5,22 +5,27 @@
              xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="50"
              x:Class="GameLibraryManager.GameUserControl" x:CompileBindings="False"
-             Background="#607080">
+             Background="#1A242D">
+             <UserControl.Styles>
+                 <Style Selector="Button:pointerover /template/ ContentPresenter">
+                     <Setter Property="Background" Value="Pink"/>
+                 </Style>
+             </UserControl.Styles>
              <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                  <Grid Height="50" Width="800" ColumnDefinitions="6*, 4*, 3*, 13*">
-                     <Label Grid.Column="0" Content="{Binding Name}" FontSize="18" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="2" Foreground="White"/>
+                     <Label Grid.Column="0" Content="{Binding Name, Mode=TwoWay}" FontSize="18" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="2" Foreground="White"/>
                      <TextBlock Grid.Column="1" Text="{Binding Genre}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
                      <TextBlock Grid.Column="2" Text="{Binding Rate}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Foreground="White"/>
                      <Grid Grid.Column="3" ColumnDefinitions="*, *, *" Margin="20, 5, 5, 5">
-                         <Button Grid.Column="0" Click="LaunchButton_Click"
-                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                         <Button Grid.Column="0" Click="LaunchButton_Click" Background="#10bbbb" Foreground="White"
+                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                  Margin="2">
                              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                  <material:MaterialIcon Kind="PlayOutline" Width="18" Height="18"/>
                                  <TextBlock Text="{DynamicResource Launch}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                              </StackPanel>
                          </Button>
-                         <Button Grid.Column="1" Click="EditButton_Click" 
+                         <Button Grid.Column="1" Click="EditButton_Click" Background="#10bbbb" Foreground="White"
                                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                                  Margin="2">
                              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -28,7 +33,7 @@
                                  <TextBlock Text="{DynamicResource Edit}" Margin="5,0,0,0" VerticalAlignment="Center"/>
                              </StackPanel>
                          </Button>
-                         <Button Grid.Column="2" Click="DeleteButton_Click" 
+                         <Button Grid.Column="2" Click="DeleteButton_Click" Background="#10bbbb" Foreground="White"
                                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                                  Margin="2">
                              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
