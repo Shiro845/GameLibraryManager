@@ -45,17 +45,6 @@ public class MainViewModel : ViewModelBase
     /// </summary>
     private string? _searchText;
 
-    private object _currentPage;
-    public object CurrentPage
-    {
-        get => _currentPage;
-        set
-        {
-            _currentPage = value;
-            this.OnPropertyChanged(nameof(CurrentPage));
-        }
-    }
-
     public bool IsOverlayVisible
     {
         get => _isOverlayVisible;
@@ -204,7 +193,7 @@ public class MainViewModel : ViewModelBase
     /// <summary>
     /// Список оцінок для вибору при додаванні/редагуванні гри.
     /// </summary>
-    public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
+    //public List<string> RateList { get; } = new() { "1/5", "2/5", "3/5", "4/5", "5/5" };
 
 
     private DateTime _startTime;

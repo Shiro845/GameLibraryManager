@@ -128,7 +128,7 @@
                 </Border>
             </Border>
             <Border Grid.Column="1" Background="#052535">
-                <TransitioningContentControl x:Name="MainContentArea" Content="{Binding CurrentPage}">
+                <TransitioningContentControl x:Name="MainContentArea">
                     <TransitioningContentControl.PageTransition>
                         <CrossFade Duration="00:00:00.300"/>
                     </TransitioningContentControl.PageTransition>
